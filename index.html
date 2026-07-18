@@ -3,9 +3,228 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Ajay Debt Tracker 😂</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background: linear-gradient(-45deg, #ff6b6b, #feca57, #48dbfb, #5f27cd);
+        background-size: 400% 400%;
+        animation: bgMove 10s ease infinite;
+      }
+
+      @keyframes bgMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .card {
+        width: min(90%, 800px);
+        padding: 40px;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(18px);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        text-align: center;
+        color: white;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        position: relative;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .card:hover {
+        animation: shake 0.3s;
+      }
+
+      @keyframes shake {
+        25% {
+          transform: rotate(2deg);
+        }
+        50% {
+          transform: rotate(-2deg);
+        }
+        75% {
+          transform: rotate(2deg);
+        }
+      }
+
+      h1 {
+        font-size: 2rem;
+        line-height: 1.6;
+        text-shadow: 0 0 15px yellow;
+      }
+
+      .title {
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
+
+      .tagline {
+        margin-top: 25px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #fff700;
+        min-height: 35px;
+      }
+
+      button {
+        margin-top: 30px;
+        border: none;
+        padding: 15px 35px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: bold;
+        background: #fff700;
+        color: #222;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        transform: scale(1.1);
+      }
+
+      .money {
+        position: absolute;
+        font-size: 35px;
+        animation: fall linear infinite;
+        opacity: 0.8;
+      }
+
+      @keyframes fall {
+        from {
+          transform: translateY(-100px) rotate(0deg);
+        }
+        to {
+          transform: translateY(110vh) rotate(360deg);
+        }
+      }
+
+      .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        animation: confetti 3s linear forwards;
+      }
+
+      @keyframes confetti {
+        to {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      footer {
+        margin-top: 20px;
+        opacity: 0.7;
+        font-size: 14px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Ajay ke uper 750 faizan ke and 250 utkarsh ke and jaiveer ke 10,000 ₹ jaiveer. AUR YE MILENGE SALARY PR.</h1>
+    <div class="card">
+      <div class="title">😂 AJAY LOAN TRACKER 😂</div>
+
+      <h1>
+        Ajay ke uper <span style="color: #fff700">₹750</span> Faizan ke, <span style="color: #fff700">₹250</span> Utkarsh ke, and Jaiveer ke <span style="color: #00ff95">₹10,000</span>. <br /><br />
+        💸 AUR YE MILENGE SALARY PR. 💸
+      </h1>
+
+      <div class="tagline" id="msg"></div>
+
+      <button onclick="party()">😂 Salary Kab Aayegi?</button>
+
+      <footer>Powered by Friends Recovery Department™</footer>
+    </div>
+
+    <script>
+      const messages = [
+        "💀 Recovery team is waiting...",
+        "😂 Salary detected? Nope.",
+        "💸 EMI Loading...",
+        "🫡 Ajay has left the chat.",
+        "🏃 Ajay running from creditors...",
+        "📢 Reminder sent successfully!",
+        "😎 Friends never forget money.",
+        "💰 Wallet currently under maintenance.",
+      ];
+
+      const msg = document.getElementById("msg");
+
+      function changeMessage() {
+        msg.innerHTML = messages[Math.floor(Math.random() * messages.length)];
+      }
+
+      changeMessage();
+      setInterval(changeMessage, 2500);
+
+      // floating emojis
+
+      const emojis = ["💸", "💰", "🪙", "😂", "💵", "💲"];
+
+      for (let i = 0; i < 25; i++) {
+        let e = document.createElement("div");
+        e.className = "money";
+        e.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+
+        e.style.left = Math.random() * 100 + "vw";
+        e.style.animationDuration = 4 + Math.random() * 6 + "s";
+        e.style.fontSize = 20 + Math.random() * 30 + "px";
+        e.style.animationDelay = Math.random() * 5 + "s";
+
+        document.body.appendChild(e);
+      }
+
+      // confetti
+
+      function party() {
+        alert("😂 Salary aate hi sabka paisa vasool hoga!");
+
+        for (let i = 0; i < 150; i++) {
+          let c = document.createElement("div");
+
+          c.className = "confetti";
+
+          c.style.left = Math.random() * 100 + "vw";
+
+          c.style.top = "-20px";
+
+          c.style.background = `hsl(${Math.random() * 360},100%,50%)`;
+
+          c.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+          c.style.animationDuration = 2 + Math.random() * 2 + "s";
+
+          document.body.appendChild(c);
+
+          setTimeout(() => c.remove(), 4000);
+        }
+      }
+    </script>
   </body>
 </html>
