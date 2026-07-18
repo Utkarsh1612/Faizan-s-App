@@ -1,753 +1,649 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INTERPOL / Central Recovery Bureau - Wanted Dossier: AJAY</title>
     <style>
-      /* Typography & System Variables */
-      @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap");
+        /* Typography & System Variables */
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
 
-      :root {
-        --police-blue: #0a1128;
-        --police-dark: #020617;
-        --tactical-red: #ef4444;
-        --tactical-blue: #3b82f6;
-        --cyber-amber: #f59e0b;
-        --neon-green: #10b981;
-        --glass-bg: rgba(15, 23, 42, 0.4);
-        --glass-border: rgba(255, 255, 255, 0.08);
-        --text-main: #f8fafc;
-        --text-muted: #94a3b8;
-        --card-radius: 16px;
-      }
+        :root {
+            --police-blue: #0a1128;
+            --police-dark: #020617;
+            --tactical-red: #ef4444;
+            --tactical-blue: #3b82f6;
+            --cyber-amber: #f59e0b;
+            --neon-green: #10b981;
+            --glass-bg: rgba(15, 23, 42, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-radius: 16px;
+        }
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        user-select: none;
-      }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
 
-      html {
-        scroll-behavior: smooth;
-        font-family: "Plus Jakarta Sans", sans-serif;
-        background: var(--police-dark);
-        color: var(--text-main);
-        overflow-x: hidden;
-      }
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--police-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
 
-      body {
-        min-height: 100vh;
-        background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 70%);
-        position: relative;
-        padding-bottom: 60px;
-      }
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 70%);
+            position: relative;
+            padding-bottom: 60px;
+        }
 
-      /* Tactical Siren Alert Bar */
-      .siren-bar {
-        width: 100%;
-        height: 6px;
-        background: linear-gradient(90deg, var(--tactical-red), var(--tactical-blue), var(--tactical-red));
-        background-size: 200% 100%;
-        animation: sirenAlert 2s linear infinite;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 10000;
-      }
+        /* Tactical Siren Alert Bar */
+        .siren-bar {
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--tactical-red), var(--tactical-blue), var(--tactical-red));
+            background-size: 200% 100%;
+            animation: sirenAlert 2s linear infinite;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10000;
+        }
 
-      /* Scanline Overlay Effect */
-      body::before {
-        content: " ";
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-        z-index: 9999;
-        background-size:
-          100% 4px,
-          6px 100%;
-        pointer-events: none;
-      }
+        /* Scanline Overlay Effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
 
-      /* Background Particle Engine Canvas */
-      .background-decorations {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        pointer-events: none;
-        overflow: hidden;
-      }
+        /* Background Particle Engine Canvas */
+        .background-decorations {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
 
-      .floating-emoji {
-        position: absolute;
-        font-size: 1.8rem;
-        opacity: 0.08;
-        animation: floatAround 22s linear infinite;
-      }
+        .floating-emoji {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0.08;
+            animation: floatAround 22s linear infinite;
+        }
 
-      /* Glassmorphism Premium Criminal Dashboard Modules */
-      .glass-panel {
-        background: var(--glass-bg);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid var(--glass-border);
-        border-radius: var(--card-radius);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-      }
+        /* Glassmorphism Premium Criminal Dashboard Modules */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
 
-      .glass-panel:hover {
-        border-color: rgba(239, 68, 68, 0.3);
-        box-shadow: 0 24px 50px rgba(239, 68, 68, 0.1);
-        transform: translateY(-2px);
-      }
+        .glass-panel:hover {
+            border-color: rgba(239, 68, 68, 0.3);
+            box-shadow: 0 24px 50px rgba(239, 68, 68, 0.1);
+            transform: translateY(-2px);
+        }
 
-      .container {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 24px;
-        position: relative;
-        z-index: 1;
-      }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
 
-      section {
-        padding: 60px 0 20px 0;
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-      }
+        section {
+            padding: 60px 0 20px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
 
-      section.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-      .section-title {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 2rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: -0.5px;
-        margin-bottom: 8px;
-        color: var(--text-main);
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        border-left: 4px solid var(--tactical-red);
-        padding-left: 12px;
-      }
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid var(--tactical-red);
+            padding-left: 12px;
+        }
 
-      .section-subtitle {
-        font-size: 0.95rem;
-        color: var(--text-muted);
-        margin-bottom: 36px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-family: "JetBrains Mono", monospace;
-      }
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-      /* Header / Terminal Interface */
-      header {
-        min-height: 75vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        padding-top: 40px;
-      }
+        /* Header / Terminal Interface */
+        header {
+            min-height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding-top: 40px;
+        }
 
-      .system-status-tag {
-        background: rgba(239, 68, 68, 0.1);
-        border: 1px solid var(--tactical-red);
-        color: var(--tactical-red);
-        padding: 6px 16px;
-        border-radius: 4px;
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.8rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        margin-bottom: 24px;
-        animation: beaconPulse 1s infinite alternate;
-      }
+        .system-status-tag {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--tactical-red);
+            color: var(--tactical-red);
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            animation: beaconPulse 1s infinite alternate;
+        }
 
-      .main-title {
-        font-size: 4.5rem;
-        font-weight: 900;
-        letter-spacing: -2px;
-        margin-bottom: 12px;
-        color: #ffffff;
-        text-shadow: 0 0 40px rgba(239, 68, 68, 0.4);
-      }
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 12px;
+            color: #ffffff;
+            text-shadow: 0 0 40px rgba(239, 68, 68, 0.4);
+        }
 
-      .main-subtitle {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 1.1rem;
-        color: var(--cyber-amber);
-        max-width: 650px;
-        line-height: 1.5;
-        border-right: 2px solid var(--cyber-amber);
-        white-space: nowrap;
-        overflow: hidden;
-        width: 100%;
-        animation: typewrite 4s steps(50, end) infinite;
-        margin: 0 auto;
-      }
+        .main-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--cyber-amber);
+            max-width: 650px;
+            line-height: 1.5;
+            border-right: 2px solid var(--cyber-amber);
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+            animation: typewrite 4s steps(50, end) infinite;
+            margin: 0 auto;
+        }
 
-      /* Criminal Record Layout (Crimes List) */
-      .crime-log-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 20px;
-        margin-bottom: 40px;
-      }
+        /* Criminal Record Layout (Crimes List) */
+        .crime-log-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
 
-      .crime-card {
-        padding: 24px;
-        border-top: 3px solid var(--tactical-red);
-        position: relative;
-      }
+        .crime-card {
+            padding: 24px;
+            border-top: 3px solid var(--tactical-red);
+            position: relative;
+        }
 
-      .crime-card .charge-code {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.8rem;
-        color: var(--tactical-red);
-        font-weight: 700;
-        margin-bottom: 8px;
-      }
+        .crime-card .charge-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--tactical-red);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
 
-      .crime-card h3 {
-        font-size: 1.25rem;
-        font-weight: 700;
-        margin-bottom: 8px;
-        color: var(--text-main);
-      }
+        .crime-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
 
-      .crime-card p {
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        line-height: 1.4;
-      }
+        .crime-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
 
-      /* Section 1: Udhar Department Ledger */
-      .udhar-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 24px;
-        margin-bottom: 32px;
-      }
+        /* Section 1: Udhar Department Ledger */
+        .udhar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
 
-      .money-card {
-        padding: 28px;
-        position: relative;
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.6) 100%);
-      }
+        .money-card {
+            padding: 28px;
+            position: relative;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.6) 100%);
+        }
 
-      .money-card .victim-profile {
-        font-size: 1.2rem;
-        font-weight: 700;
-        margin-bottom: 4px;
-        font-family: "JetBrains Mono", monospace;
-      }
+        .money-card .victim-profile {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-      .money-card .label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        letter-spacing: 1px;
-        font-family: "JetBrains Mono", monospace;
-      }
+        .money-card .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-      .money-card .amount {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: var(--tactical-red);
-        margin-top: 6px;
-        font-family: "JetBrains Mono", monospace;
-        text-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
-      }
+        .money-card .amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--tactical-red);
+            margin-top: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+        }
 
-      .udhar-dashboard {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-        align-items: center;
-        padding: 36px;
-        border-left: 4px solid var(--cyber-amber);
-      }
-
-      @media (max-width: 768px) {
         .udhar-dashboard {
-          grid-template-columns: 1fr;
-          padding: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: center;
+            padding: 36px;
+            border-left: 4px solid var(--cyber-amber);
         }
-      }
 
-      .total-counter-container h3 {
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: var(--text-muted);
-        margin-bottom: 4px;
-        font-family: "JetBrains Mono", monospace;
-      }
+        @media (max-width: 768px) {
+            .udhar-dashboard {
+                grid-template-columns: 1fr;
+                padding: 24px;
+            }
+        }
 
-      .total-amount {
-        font-size: 3.5rem;
-        font-weight: 800;
-        color: #ffffff;
-        font-family: "JetBrains Mono", monospace;
-      }
+        .total-counter-container h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-      .status-pane {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-      }
+        .total-amount {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-      .status-badge-animated {
-        background: rgba(245, 158, 11, 0.1);
-        border: 1px solid var(--cyber-amber);
-        color: var(--cyber-amber);
-        padding: 8px 20px;
-        border-radius: 4px;
-        font-weight: 700;
-        font-size: 0.85rem;
-        font-family: "JetBrains Mono", monospace;
-        letter-spacing: 1px;
-        animation: statusPulse 1.2s infinite alternate;
-      }
+        .status-pane {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
 
-      .status-quote {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 1.1rem;
-        color: var(--text-main);
-        font-weight: 700;
-      }
+        .status-badge-animated {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--cyber-amber);
+            color: var(--cyber-amber);
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 1px;
+            animation: statusPulse 1.2s infinite alternate;
+        }
 
-      .action-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        background: var(--tactical-red);
-        border: none;
-        color: white;
-        padding: 14px 32px;
-        font-size: 1rem;
-        font-weight: 700;
-        font-family: "JetBrains Mono", monospace;
-        border-radius: 4px;
-        cursor: pointer;
-        box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
-        transition: all 0.2s ease;
-        text-transform: uppercase;
-      }
+        .status-quote {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
 
-      .action-btn:hover {
-        background: #dc2626;
-        transform: translateY(-1px);
-        box-shadow: 0 6px 24px rgba(239, 68, 68, 0.6);
-      }
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--tactical-red);
+            border: none;
+            color: white;
+            padding: 14px 32px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
 
-      /* Section 2: Relationship Syndicate Portfolio */
-      .relationship-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px;
-      }
+        .action-btn:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(239, 68, 68, 0.6);
+        }
 
-      .relationship-card {
-        padding: 24px;
-        text-align: center;
-        border-bottom: 3px solid rgba(255, 255, 255, 0.1);
-      }
+        /* Section 2: Relationship Syndicate Portfolio */
+        .relationship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
 
-      .relationship-card .avatar-emoji {
-        font-size: 3rem;
-        margin-bottom: 12px;
-        display: inline-block;
-      }
+        .relationship-card {
+            padding: 24px;
+            text-align: center;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+        }
 
-      .relationship-card h3 {
-        font-size: 1.3rem;
-        font-weight: 700;
-        margin-bottom: 8px;
-        font-family: "JetBrains Mono", monospace;
-      }
+        .relationship-card .avatar-emoji {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
 
-      .portfolio-badge {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 4px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        font-family: "JetBrains Mono", monospace;
-        text-transform: uppercase;
-      }
+        .relationship-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-      .badge-ex {
-        background: rgba(239, 68, 68, 0.15);
-        border: 1px solid var(--tactical-red);
-        color: var(--tactical-red);
-      }
-      .badge-vip {
-        background: rgba(59, 130, 246, 0.15);
-        border: 1px solid var(--tactical-blue);
-        color: var(--tactical-blue);
-      }
-      .badge-special {
-        background: rgba(168, 85, 247, 0.15);
-        border: 1px solid #a855f7;
-        color: #a855f7;
-      }
-      .badge-premium {
-        background: rgba(245, 158, 11, 0.15);
-        border: 1px solid var(--cyber-amber);
-        color: var(--cyber-amber);
-      }
+        .portfolio-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+        }
 
-      /* Section 3: Head of Operations / Official Wife */
-      .wife-section {
-        display: flex;
-        justify-content: center;
-        margin-top: 30px;
-      }
+        .badge-ex { background: rgba(239, 68, 68, 0.15); border: 1px solid var(--tactical-red); color: var(--tactical-red); }
+        .badge-vip { background: rgba(59, 130, 246, 0.15); border: 1px solid var(--tactical-blue); color: var(--tactical-blue); }
+        .badge-special { background: rgba(168, 85, 247, 0.15); border: 1px solid #a855f7; color: #a855f7; }
+        .badge-premium { background: rgba(245, 158, 11, 0.15); border: 1px solid var(--cyber-amber); color: var(--cyber-amber); }
 
-      .royal-card {
-        width: 100%;
-        max-width: 600px;
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
-        border: 2px solid var(--cyber-amber);
-        border-radius: var(--card-radius);
-        padding: 40px;
-        text-align: center;
-        position: relative;
-        box-shadow: 0 0 40px rgba(245, 158, 11, 0.15);
-      }
+        /* Section 3: Head of Operations / Official Wife */
+        .wife-section {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
 
-      .crown-container {
-        font-size: 4rem;
-        margin-bottom: 12px;
-        filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
-      }
+        .royal-card {
+            width: 100%;
+            max-width: 600px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 2px solid var(--cyber-amber);
+            border-radius: var(--card-radius);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.15);
+        }
 
-      .royal-card h3 {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 1.1rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: var(--cyber-amber);
-        margin-bottom: 6px;
-      }
+        .crown-container {
+            font-size: 4rem;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 10px rgba(245,158,11,0.5));
+        }
 
-      .royal-name {
-        font-size: 2.8rem;
-        font-weight: 800;
-        margin-bottom: 12px;
-        color: #ffffff;
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-      }
+        .royal-card h3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyber-amber);
+            margin-bottom: 6px;
+        }
 
-      .royal-desc {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.95rem;
-        color: var(--neon-green);
-        font-weight: 700;
-      }
+        .royal-name {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
 
-      /* Section 4: Forensic Stats Matrix */
-      .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 16px;
-      }
+        .royal-desc {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--neon-green);
+            font-weight: 700;
+        }
 
-      .stat-card {
-        padding: 24px;
-        text-align: center;
-        border-left: 2px solid var(--text-muted);
-      }
+        /* Section 4: Forensic Stats Matrix */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
 
-      .stat-card .stat-val {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 4px;
-      }
+        .stat-card {
+            padding: 24px;
+            text-align: center;
+            border-left: 2px solid var(--text-muted);
+        }
 
-      .stat-card:nth-child(1) .stat-val {
-        color: var(--tactical-blue);
-      }
-      .stat-card:nth-child(2) .stat-val {
-        color: var(--cyber-amber);
-      }
-      .stat-card:nth-child(3) .stat-val {
-        color: var(--tactical-red);
-      }
-      .stat-card:nth-child(4) .stat-val {
-        color: var(--neon-green);
-      }
-      .stat-card:nth-child(5) .stat-val {
-        color: #ec4899;
-      }
+        .stat-card .stat-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
 
-      .stat-card .stat-lbl {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-family: "JetBrains Mono", monospace;
-      }
+        .stat-card:nth-child(1) .stat-val { color: var(--tactical-blue); }
+        .stat-card:nth-child(2) .stat-val { color: var(--cyber-amber); }
+        .stat-card:nth-child(3) .stat-val { color: var(--tactical-red); }
+        .stat-card:nth-child(4) .stat-val { color: var(--neon-green); }
+        .stat-card:nth-child(5) .stat-val { color: #ec4899; }
 
-      /* Section 5: Achievements Badges */
-      .badge-flex {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-        justify-content: center;
-      }
+        .stat-card .stat-lbl {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-      .achievement-badge {
-        padding: 16px 28px;
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        border-radius: 4px;
-        border-inline-start: 3px solid var(--cyber-amber);
-      }
+        /* Section 5: Achievements Badges */
+        .badge-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+        }
 
-      .achievement-badge .icon {
-        font-size: 1.8rem;
-      }
-      .achievement-badge .info h4 {
-        font-size: 1rem;
-        font-weight: 700;
-        margin-bottom: 2px;
-        font-family: "JetBrains Mono", monospace;
-      }
-      .achievement-badge .info p {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-      }
+        .achievement-badge {
+            padding: 16px 28px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-radius: 4px;
+            border-inline-start: 3px solid var(--cyber-amber);
+        }
 
-      /* Section 6: Operations Timeline */
-      .timeline-container {
-        max-width: 800px;
-        margin: 0 auto;
-        position: relative;
-        padding: 30px 0;
-      }
+        .achievement-badge .icon { font-size: 1.8rem; }
+        .achievement-badge .info h4 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; font-family: 'JetBrains Mono', monospace;}
+        .achievement-badge .info p { font-size: 0.8rem; color: var(--text-muted); }
 
-      .timeline-container::before {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: var(--glass-border);
-        transform: translateX(-50%);
-      }
+        /* Section 6: Operations Timeline */
+        .timeline-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            padding: 30px 0;
+        }
 
-      .timeline-item {
-        width: 50%;
-        padding: 15px 30px;
-        position: relative;
-      }
-
-      .timeline-item.left {
-        left: 0;
-        text-align: right;
-      }
-      .timeline-item.right {
-        left: 50%;
-        text-align: left;
-      }
-
-      .timeline-dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: var(--tactical-red);
-        position: absolute;
-        top: 24px;
-        z-index: 2;
-        box-shadow: 0 0 10px var(--tactical-red);
-      }
-
-      .timeline-item.left .timeline-dot {
-        right: -6px;
-      }
-      .timeline-item.right .timeline-dot {
-        left: -6px;
-      }
-
-      .timeline-content {
-        padding: 20px;
-      }
-      .timeline-content h4 {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 1.1rem;
-        font-weight: 700;
-        margin-bottom: 4px;
-        color: var(--text-main);
-      }
-      .timeline-content p {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-      }
-
-      @media (max-width: 768px) {
         .timeline-container::before {
-          left: 20px;
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--glass-border);
+            transform: translateX(-50%);
         }
+
         .timeline-item {
-          width: 100%;
-          left: 0 !important;
-          padding-left: 40px;
-          padding-right: 0;
-          text-align: left !important;
+            width: 50%;
+            padding: 15px 30px;
+            position: relative;
         }
+
+        .timeline-item.left { left: 0; text-align: right; }
+        .timeline-item.right { left: 50%; text-align: left; }
+
         .timeline-dot {
-          left: 14px !important;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--tactical-red);
+            position: absolute;
+            top: 24px;
+            z-index: 2;
+            box-shadow: 0 0 10px var(--tactical-red);
         }
-      }
 
-      /* Federal Warning Popup Notifications */
-      .popup-notification {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        background: #0f172a;
-        border-left: 4px solid var(--tactical-red);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-        border-radius: 4px;
-        padding: 16px 24px;
-        color: white;
-        z-index: 10000;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.9rem;
-        transform: translateY(100px);
-        opacity: 0;
-        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-      }
+        .timeline-item.left .timeline-dot { right: -6px; }
+        .timeline-item.right .timeline-dot { left: -6px; }
 
-      .popup-notification.show {
-        transform: translateY(0);
-        opacity: 1;
-      }
+        .timeline-content { padding: 20px; }
+        .timeline-content h4 { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
+        .timeline-content p { font-size: 0.85rem; color: var(--text-muted); }
 
-      footer {
-        text-align: center;
-        padding: 40px 24px 20px 24px;
-        color: var(--text-muted);
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.8rem;
-        border-top: 1px solid var(--glass-border);
-        margin-top: 60px;
-      }
+        @media (max-width: 768px) {
+            .timeline-container::before { left: 20px; }
+            .timeline-item { width: 100%; left: 0 !important; padding-left: 40px; padding-right: 0; text-align: left !important; }
+            .timeline-dot { left: 14px !important; }
+        }
 
-      /* System Keyframes Animations */
-      @keyframes sirenAlert {
-        0% {
-          background-position: 0% 0%;
+        /* Federal Warning Popup Notifications */
+        .popup-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #0f172a;
+            border-left: 4px solid var(--tactical-red);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            border-radius: 4px;
+            padding: 16px 24px;
+            color: white;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        100% {
-          background-position: 200% 0%;
-        }
-      }
 
-      @keyframes floatAround {
-        0% {
-          transform: translateY(105vh) translateX(0) rotate(0deg);
+        .popup-notification.show {
+            transform: translateY(0);
+            opacity: 1;
         }
-        100% {
-          transform: translateY(-10vh) translateX(50px) rotate(360deg);
-        }
-      }
 
-      @keyframes beaconPulse {
-        0% {
-          opacity: 0.6;
-          box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+        footer {
+            text-align: center;
+            padding: 40px 24px 20px 24px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 60px;
         }
-        100% {
-          opacity: 1;
-          box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
-        }
-      }
 
-      @keyframes statusPulse {
-        0% {
-          transform: scale(1);
+        /* System Keyframes Animations */
+        @keyframes sirenAlert {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
         }
-        100% {
-          transform: scale(1.02);
-        }
-      }
 
-      @keyframes typewrite {
-        0%,
-        100% {
-          width: 0;
+        @keyframes floatAround {
+            0% { transform: translateY(105vh) translateX(0) rotate(0deg); }
+            100% { transform: translateY(-10vh) translateX(50px) rotate(360deg); }
         }
-        50%,
-        80% {
-          width: 100%;
-        }
-      }
 
-      .shake-element {
-        animation: tacticalShake 0.4s ease-in-out;
-      }
+        @keyframes beaconPulse {
+            0% { opacity: 0.6; box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
+            100% { opacity: 1; box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+        }
 
-      @keyframes tacticalShake {
-        0%,
-        100% {
-          transform: translateX(0);
+        @keyframes statusPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.02); }
         }
-        25% {
-          transform: translateX(-4px);
-        }
-        75% {
-          transform: translateX(4px);
-        }
-      }
 
-      .confetti-piece {
-        position: fixed;
-        width: 8px;
-        height: 8px;
-        z-index: 9999;
-        top: -10px;
-        animation: fall linear forwards;
-      }
-
-      @keyframes fall {
-        to {
-          transform: translateY(105vh) rotate(360deg);
+        @keyframes typewrite {
+            0%, 100% { width: 0; }
+            50%, 80% { width: 100%; }
         }
-      }
+
+        .shake-element {
+            animation: tacticalShake 0.4s ease-in-out;
+        }
+
+        @keyframes tacticalShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        .confetti-piece {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            z-index: 9999;
+            top: -10px;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
+
     <!-- Upper Siren Bar Grid -->
     <div class="siren-bar"></div>
 
@@ -755,342 +651,349 @@
     <div class="background-decorations" id="bgDecorations"></div>
 
     <div class="container">
-      <!-- Main Tactical Dispatch Header -->
-      <header>
-        <div class="system-status-tag">🚨 INTERPOL MOST WANTED TARGET INDEX 🚨</div>
-        <h1 class="main-title">😂 AJAY DOSSIER 😂</h1>
-        <div class="main-subtitle">"Confidential Report Generated by Friends Recovery Department"</div>
-      </header>
+        <!-- Main Tactical Dispatch Header -->
+        <header>
+            <div class="system-status-tag">🚨 INTERPOL MOST WANTED TARGET INDEX 🚨</div>
+            <h1 class="main-title">😂 AJAY DOSSIER 😂</h1>
+            <div class="main-subtitle">"Confidential Report Generated by Friends Recovery Department"</div>
+        </header>
 
-      <!-- Criminal Activity Log (Crimes Section) -->
-      <section id="crimes">
-        <h2 class="section-title">📂 Charge Sheet & Criminal Records</h2>
-        <p class="section-subtitle">Documented non-bailable tracking indexes against citizen assets</p>
-
-        <div class="crime-log-grid">
-          <div class="glass-panel crime-card">
-            <div class="charge-code">CHARGE CODE: 420-CHAI</div>
-            <h3>Grand Theft Auto (Chai Counter)</h3>
-            <p>Repetitive patterns of ordering premium snacks followed by sudden tactical disappearance whenever billing processing commences.</p>
-          </div>
-          <div class="glass-panel crime-card">
-            <div class="charge-code">CHARGE CODE: 99-WALLET</div>
-            <h3>Aggravated Wallet Forgetfulness</h3>
-            <p>Highly calculated failure to secure physical liquidity units before engineering group dinner expeditions.</p>
-          </div>
-          <div class="glass-panel crime-card">
-            <div class="charge-code">CHARGE CODE: 101-MYTH</div>
-            <h3>Mythological Salary Prophecy</h3>
-            <p>Fabrication of non-existent transactional assets. Repeatedly proclaiming automated settlement cycles on imaginary calendar dates.</p>
-          </div>
-          <div class="glass-panel crime-card">
-            <div class="charge-code">CHARGE CODE: 69-RACKET</div>
-            <h3>Emotional Racketeering</h3>
-            <p>Operating a complex, unauthorized cross-border network of active relationship candidates without regulatory clearance certificates.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 1: Udhar Department Ledger -->
-      <section id="udhar">
-        <h2 class="section-title">💸 Udhar Department</h2>
-        <p class="section-subtitle">Financial audit logs tracking capital leaks across verified victim terminals</p>
-
-        <div class="udhar-grid">
-          <div class="glass-panel money-card">
-            <div class="victim-profile">👦 Faizan</div>
-            <div class="label">Total Loss Sustained</div>
-            <div class="amount">₹750</div>
-          </div>
-          <div class="glass-panel money-card">
-            <div class="victim-profile">👦 Utkarsh</div>
-            <div class="label">Total Loss Sustained</div>
-            <div class="amount">₹250</div>
-          </div>
-          <div class="glass-panel money-card">
-            <div class="victim-profile">👦 Jaiveer</div>
-            <div class="label">Total Loss Sustained</div>
-            <div class="amount">₹10,000</div>
-          </div>
-        </div>
-
-        <div class="glass-panel udhar-dashboard">
-          <div class="total-counter-container">
-            <h3>Accumulated Sovereign Liability</h3>
-            <div class="total-amount" id="totalDebtVal">₹0</div>
-          </div>
-          <div class="status-pane">
-            <div class="status-badge-animated">CRITICAL SETTLEMENT STATUS</div>
-            <p class="status-quote">"AUR YE MILENGE SALARY PR."</p>
-            <button class="action-btn" id="salaryBtn">
-              <span>😂 Salary Kab Aayegi?</span>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 2: Relationship Portfolio Syndicate -->
-      <section id="relationship">
-        <h2 class="section-title">❤️ Relationship Portfolio Syndicate</h2>
-        <p class="section-subtitle">Purely for Educational Purposes 😂</p>
-
-        <div class="relationship-grid">
-          <div class="glass-panel relationship-card">
-            <span class="avatar-emoji">🌹</span>
-            <h3>Minakshi</h3>
-            <span class="portfolio-badge badge-ex">Ex Candidate</span>
-          </div>
-          <div class="glass-panel relationship-card">
-            <span class="avatar-emoji">🌸</span>
-            <h3>Puja</h3>
-            <span class="portfolio-badge badge-vip">VIP Friend</span>
-          </div>
-          <div class="glass-panel relationship-card">
-            <span class="avatar-emoji">✨</span>
-            <h3>Riya</h3>
-            <span class="portfolio-badge badge-special">Special Entry</span>
-          </div>
-          <div class="glass-panel relationship-card">
-            <span class="avatar-emoji">💖</span>
-            <h3>Kajal</h3>
-            <span class="portfolio-badge badge-premium">Premium Member</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 3: Head of Operations / Official Wife -->
-      <section id="official-wife" class="wife-section">
-        <div class="royal-card">
-          <div class="crown-container">👑</div>
-          <h3>Official Wife</h3>
-          <div class="royal-name">Vanshika ❤️</div>
-          <p class="royal-desc">🔒 Lifetime Premium Subscription Activated</p>
-        </div>
-      </section>
-
-      <!-- Section 4: Forensic Statistics Matrix -->
-      <section id="stats">
-        <h2 class="section-title">📊 Forensic Threat Matrix Analytics</h2>
-        <p class="section-subtitle">Realtime metrics captured via public tracking systems</p>
-
-        <div class="stats-grid">
-          <div class="glass-panel stat-card">
-            <div class="stat-val">4</div>
-            <div class="stat-lbl">Girlfriends</div>
-          </div>
-          <div class="glass-panel stat-card">
-            <div class="stat-val">1</div>
-            <div class="stat-lbl">Official Wife</div>
-          </div>
-          <div class="glass-panel stat-card">
-            <div class="stat-val" style="font-size: 2rem">11,000</div>
-            <div class="stat-lbl">Total Debt</div>
-          </div>
-          <div class="glass-panel stat-card">
-            <div class="stat-val" style="font-size: 1.4rem; font-weight: 700; padding: 10px 0">PENDING</div>
-            <div class="stat-lbl">Salary Status</div>
-          </div>
-          <div class="glass-panel stat-card">
-            <div class="stat-val">999+</div>
-            <div class="stat-lbl">Recovery Calls</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 5: Verified Criminal Milestones -->
-      <section id="achievements">
-        <h2 class="section-title">🏆 Certified Operations Milestones</h2>
-        <p class="section-subtitle">Decorated tactical records compiled by intelligence branches</p>
-
-        <div class="badge-flex">
-          <div class="glass-panel achievement-badge">
-            <span class="icon">🏆</span>
-            <div class="info">
-              <h4>Master of Borrowing</h4>
-              <p>Securing high volume capital flows without equity.</p>
+        <!-- Criminal Activity Log (Crimes Section) -->
+        <section id="crimes">
+            <h2 class="section-title">📂 Charge Sheet & Criminal Records</h2>
+            <p class="section-subtitle">Documented non-bailable tracking indexes against citizen assets</p>
+            
+            <div class="crime-log-grid">
+                <div class="glass-panel crime-card">
+                    <div class="charge-code">CHARGE CODE: 420-CHAI</div>
+                    <h3>Grand Theft Auto (Chai Counter)</h3>
+                    <p>Repetitive patterns of ordering premium snacks followed by sudden tactical disappearance whenever billing processing commences.</p>
+                </div>
+                <div class="glass-panel crime-card">
+                    <div class="charge-code">CHARGE CODE: 99-WALLET</div>
+                    <h3>Aggravated Wallet Forgetfulness</h3>
+                    <p>Highly calculated failure to secure physical liquidity units before engineering group dinner expeditions.</p>
+                </div>
+                <div class="glass-panel crime-card">
+                    <div class="charge-code">CHARGE CODE: 101-MYTH</div>
+                    <h3>Mythological Salary Prophecy</h3>
+                    <p>Fabrication of non-existent transactional assets. Repeatedly proclaiming automated settlement cycles on imaginary calendar dates.</p>
+                </div>
+                <div class="glass-panel crime-card">
+                    <div class="charge-code">CHARGE CODE: 69-RACKET</div>
+                    <h3>Emotional Racketeering</h3>
+                    <p>Operating a complex, unauthorized cross-border network of active relationship candidates without regulatory clearance certificates.</p>
+                </div>
             </div>
-          </div>
-          <div class="glass-panel achievement-badge">
-            <span class="icon">🥇</span>
-            <div class="info">
-              <h4>Salary Delay Champion</h4>
-              <p>Neutralizing tracking questions via bank server arguments.</p>
-            </div>
-          </div>
-          <div class="glass-panel achievement-badge">
-            <span class="icon">🎯</span>
-            <div class="info">
-              <h4>Escape Artist</h4>
-              <p>Vanishing inside restaurant facilities during check deliveries.</p>
-            </div>
-          </div>
-          <div class="glass-panel achievement-badge">
-            <span class="icon">😂</span>
-            <div class="info">
-              <h4>Professional Promise Maker</h4>
-              <p>"Bhai kal pakka de dunga."</p>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Section 6: Operational Crime History Timeline -->
-      <section id="timeline">
-        <h2 class="section-title">⏳ History Timeline Log</h2>
-        <p class="section-subtitle">Evolution tracking of tactical economic movements</p>
+        <!-- Section 1: Udhar Department Ledger -->
+        <section id="udhar">
+            <h2 class="section-title">💸 Udhar Department</h2>
+            <p class="section-subtitle">Financial audit logs tracking capital leaks across verified victim terminals</p>
+            
+            <div class="udhar-grid">
+                <div class="glass-panel money-card">
+                    <div class="victim-profile">👦 Faizan</div>
+                    <div class="label">Total Loss Sustained</div>
+                    <div class="amount">₹750</div>
+                </div>
+                <div class="glass-panel money-card">
+                    <div class="victim-profile">👦 Utkarsh</div>
+                    <div class="label">Total Loss Sustained</div>
+                    <div class="amount">₹250</div>
+                </div>
+                <div class="glass-panel money-card">
+                    <div class="victim-profile">👦 Jaiveer</div>
+                    <div class="label">Total Loss Sustained</div>
+                    <div class="amount">₹10,000</div>
+                </div>
+            </div>
 
-        <div class="timeline-container">
-          <div class="timeline-item left">
-            <div class="timeline-dot"></div>
-            <div class="glass-panel timeline-content">
-              <h4>Borrowed ₹750</h4>
-              <p>Initiation sequence: Establishing baseline operational leverage.</p>
+            <div class="glass-panel udhar-dashboard">
+                <div class="total-counter-container">
+                    <h3>Accumulated Sovereign Liability</h3>
+                    <div class="total-amount" id="totalDebtVal">₹0</div>
+                </div>
+                <div class="status-pane">
+                    <div class="status-badge-animated">CRITICAL SETTLEMENT STATUS</div>
+                    <p class="status-quote">"AUR YE MILENGE SALARY PR."</p>
+                    <button class="action-btn" id="salaryBtn">
+                        <span>😂 Salary Kab Aayegi?</span>
+                    </button>
+                </div>
             </div>
-          </div>
-          <div class="timeline-item right">
-            <div class="timeline-dot"></div>
-            <div class="glass-panel timeline-content">
-              <h4>Borrowed ₹250</h4>
-              <p>Micro injection: Secondary capital deployment for quick consumer items.</p>
+        </section>
+
+        <!-- Section 2: Relationship Portfolio Syndicate -->
+        <section id="relationship">
+            <h2 class="section-title">❤️ Relationship Portfolio Syndicate</h2>
+            <p class="section-subtitle">Purely for Educational Purposes 😂</p>
+
+            <div class="relationship-grid">
+                <div class="glass-panel relationship-card">
+                    <span class="avatar-emoji">🌹</span>
+                    <h3>Minakshi</h3>
+                    <span class="portfolio-badge badge-ex">Ex Candidate</span>
+                </div>
+                <div class="glass-panel relationship-card">
+                    <span class="avatar-emoji">🌸</span>
+                    <h3>Puja</h3>
+                    <span class="portfolio-badge badge-vip">VIP Friend</span>
+                </div>
+                <div class="glass-panel relationship-card">
+                    <span class="avatar-emoji">✨</span>
+                    <h3>Riya</h3>
+                    <span class="portfolio-badge badge-special">Special Entry</span>
+                </div>
+                <div class="glass-panel relationship-card">
+                    <span class="avatar-emoji">💖</span>
+                    <h3>Kajal</h3>
+                    <span class="portfolio-badge badge-premium">Premium Member</span>
+                </div>
             </div>
-          </div>
-          <div class="timeline-item left">
-            <div class="timeline-dot"></div>
-            <div class="glass-panel timeline-content">
-              <h4>Borrowed ₹10,000</h4>
-              <p>Grand Enterprise: Massive structural asset absorption sequence executed.</p>
+        </section>
+
+        <!-- Section 3: Head of Operations / Official Wife -->
+        <section id="official-wife" class="wife-section">
+            <div class="royal-card">
+                <div class="crown-container">👑</div>
+                <h3>Official Wife</h3>
+                <div class="royal-name">Vanshika ❤️</div>
+                <p class="royal-desc">🔒 Lifetime Premium Subscription Activated</p>
             </div>
-          </div>
-          <div class="timeline-item right">
-            <div class="timeline-dot"></div>
-            <div class="glass-panel timeline-content">
-              <h4>Salary Expected</h4>
-              <p>Algorithmic Prediction: Theoretical settlement projections mapped dynamically.</p>
+        </section>
+
+        <!-- Section 4: Forensic Statistics Matrix -->
+        <section id="stats">
+            <h2 class="section-title">📊 Forensic Threat Matrix Analytics</h2>
+            <p class="section-subtitle">Realtime metrics captured via public tracking systems</p>
+            
+            <div class="stats-grid">
+                <div class="glass-panel stat-card">
+                    <div class="stat-val">4</div>
+                    <div class="stat-lbl">Girlfriends</div>
+                </div>
+                <div class="glass-panel stat-card">
+                    <div class="stat-val">1</div>
+                    <div class="stat-lbl">Official Wife</div>
+                </div>
+                <div class="glass-panel stat-card">
+                    <div class="stat-val" style="font-size: 2rem;">11,000</div>
+                    <div class="stat-lbl">Total Debt</div>
+                </div>
+                <div class="glass-panel stat-card">
+                    <div class="stat-val" style="font-size: 1.4rem; font-weight:700; padding: 10px 0;">PENDING</div>
+                    <div class="stat-lbl">Salary Status</div>
+                </div>
+                <div class="glass-panel stat-card">
+                    <div class="stat-val">999+</div>
+                    <div class="stat-lbl">Recovery Calls</div>
+                </div>
             </div>
-          </div>
-          <div class="timeline-item left">
-            <div class="timeline-dot"></div>
-            <div class="glass-panel timeline-content">
-              <h4>Payment Still Pending</h4>
-              <p>Infinite Loop State: Infinite wait pattern activated across all nodes.</p>
+        </section>
+
+        <!-- Section 5: Verified Criminal Milestones -->
+        <section id="achievements">
+            <h2 class="section-title">🏆 Certified Operations Milestones</h2>
+            <p class="section-subtitle">Decorated tactical records compiled by intelligence branches</p>
+            
+            <div class="badge-flex">
+                <div class="glass-panel achievement-badge">
+                    <span class="icon">🏆</span>
+                    <div class="info">
+                        <h4>Master of Borrowing</h4>
+                        <p>Securing high volume capital flows without equity.</p>
+                    </div>
+                </div>
+                <div class="glass-panel achievement-badge">
+                    <span class="icon">🥇</span>
+                    <div class="info">
+                        <h4>Salary Delay Champion</h4>
+                        <p>Neutralizing tracking questions via bank server arguments.</p>
+                    </div>
+                </div>
+                <div class="glass-panel achievement-badge">
+                    <span class="icon">🎯</span>
+                    <div class="info">
+                        <h4>Escape Artist</h4>
+                        <p>Vanishing inside restaurant facilities during check deliveries.</p>
+                    </div>
+                </div>
+                <div class="glass-panel achievement-badge">
+                    <span class="icon">😂</span>
+                    <div class="info">
+                        <h4>Professional Promise Maker</h4>
+                        <p>"Bhai kal pakka de dunga."</p>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </section>
+        </section>
+
+        <!-- Section 6: Operational Crime History Timeline -->
+        <section id="timeline">
+            <h2 class="section-title">⏳ History Timeline Log</h2>
+            <p class="section-subtitle">Evolution tracking of tactical economic movements</p>
+
+            <div class="timeline-container">
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-panel timeline-content">
+                        <h4>Borrowed ₹750</h4>
+                        <p>Initiation sequence: Establishing baseline operational leverage.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-panel timeline-content">
+                        <h4>Borrowed ₹250</h4>
+                        <p>Micro injection: Secondary capital deployment for quick consumer items.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-panel timeline-content">
+                        <h4>Borrowed ₹10,000</h4>
+                        <p>Grand Enterprise: Massive structural asset absorption sequence executed.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-panel timeline-content">
+                        <h4>Salary Expected</h4>
+                        <p>Algorithmic Prediction: Theoretical settlement projections mapped dynamically.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-panel timeline-content">
+                        <h4>Payment Still Pending</h4>
+                        <p>Infinite Loop State: Infinite wait pattern activated across all nodes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <!-- System Threat Toast Notifications -->
     <div class="popup-notification" id="funnyPopup">
-      <span style="font-size: 1.2rem">⚠️ CODE RED:</span>
-      <span id="popupMessage">Recovery team is waiting.</span>
+        <span style="font-size: 1.2rem;">⚠️ CODE RED:</span>
+        <span id="popupMessage">Recovery team is waiting.</span>
     </div>
 
     <!-- Federal Bottom Footer -->
     <footer>
-      <p>Made with ❤️ by Friends Recovery Department</p>
-      <p style="opacity: 0.4; font-size: 0.75rem; margin-top: 6px">All Rights Reserved Until Payment Received.</p>
+        <p>Made with ❤️ by Friends Recovery Department</p>
+        <p style="opacity: 0.4; font-size: 0.75rem; margin-top: 6px;">All Rights Reserved Until Payment Received.</p>
     </footer>
 
     <!-- Interactive Execution Script -->
     <script>
-      // System Decorative Particle Grid Engine
-      const emojis = ["💸", "❤️", "😂", "👑", "💰"];
-      const decorContainer = document.getElementById("bgDecorations");
+        // System Decorative Particle Grid Engine
+        const emojis = ['💸', '❤️', '😂', '👑', '💰'];
+        const decorContainer = document.getElementById('bgDecorations');
 
-      for (let i = 0; i < 25; i++) {
-        const span = document.createElement("span");
-        span.className = "floating-emoji";
-        span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        span.style.left = Math.random() * 100 + "vw";
-        span.style.top = Math.random() * 100 + "vh";
-        span.style.animationDelay = Math.random() * -20 + "s";
-        span.style.fontSize = Math.random() * 1.2 + 1.2 + "rem";
-        decorContainer.appendChild(span);
-      }
-
-      // Numerical Incrementation Component
-      function animateValue(obj, start, end, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-          if (!startTimestamp) startTimestamp = timestamp;
-          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-          obj.innerHTML = "₹" + Math.floor(progress * (end - start) + start).toLocaleString("en-IN");
-          if (progress < 1) {
-            window.requestAnimationFrame(step);
-          }
-        };
-        window.requestAnimationFrame(step);
-      }
-
-      // Screen Element Monitoring Engine
-      const sections = document.querySelectorAll("section");
-      const observerOptions = { threshold: 0.1 };
-
-      const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            if (entry.target.id === "udhar") {
-              const debtEl = document.getElementById("totalDebtVal");
-              if (debtEl.innerText === "₹0") {
-                animateValue(debtEl, 0, 11000, 1500);
-              }
-            }
-          }
-        });
-      }, observerOptions);
-
-      sections.forEach((sec) => sectionObserver.observe(sec));
-
-      // Interactivity Dispatch Logic
-      const salaryBtn = document.getElementById("salaryBtn");
-      const funnyPopup = document.getElementById("funnyPopup");
-      const popupMessage = document.getElementById("popupMessage");
-
-      const phrases = ["Recovery team is waiting.", "Ajay is searching for salary.", "Loan Approved... Payment Pending.", "Wallet not found.", "Salary loading...", "Friends never forget money."];
-
-      function triggerConfetti() {
-        for (let i = 0; i < 40; i++) {
-          const confetti = document.createElement("div");
-          confetti.className = "confetti-piece";
-          confetti.style.left = Math.random() * 100 + "vw";
-          confetti.style.backgroundColor = ["#ef4444", "#3b82f6", "#f59e0b", "#10b981"][Math.floor(Math.random() * 4)];
-          confetti.style.transform = "scale(" + (Math.random() * 0.5 + 0.5) + ")";
-          confetti.style.animationDuration = Math.random() * 1.5 + 1 + "s";
-          document.body.appendChild(confetti);
-          setTimeout(() => confetti.remove(), 2500);
+        for(let i=0; i < 25; i++) {
+            const span = document.createElement('span');
+            span.className = 'floating-emoji';
+            span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.top = Math.random() * 100 + 'vh';
+            span.style.animationDelay = (Math.random() * -20) + 's';
+            span.style.fontSize = (Math.random() * 1.2 + 1.2) + 'rem';
+            decorContainer.appendChild(span);
         }
-      }
 
-      salaryBtn.addEventListener("click", () => {
-        const parentPanel = salaryBtn.closest(".udhar-dashboard");
-        parentPanel.classList.add("shake-element");
-        setTimeout(() => parentPanel.classList.remove("shake-element"), 400);
+        // Numerical Incrementation Component
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = '₹' + Math.floor(progress * (end - start) + start).toLocaleString('en-IN');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
 
-        triggerConfetti();
+        // Screen Element Monitoring Engine
+        const sections = document.querySelectorAll('section');
+        const observerOptions = { threshold: 0.1 };
+        
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if(entry.target.id === 'udhar') {
+                        const debtEl = document.getElementById('totalDebtVal');
+                        if(debtEl.innerText === '₹0') {
+                            animateValue(debtEl, 0, 11000, 1500);
+                        }
+                    }
+                }
+            });
+        }, observerOptions);
 
-        const randomMsg = phrases[Math.floor(Math.random() * phrases.length)];
-        popupMessage.innerText = randomMsg;
-        funnyPopup.classList.add("show");
+        sections.forEach(sec => sectionObserver.observe(sec));
 
-        setTimeout(() => {
-          funnyPopup.classList.remove("show");
-        }, 3000);
-      });
+        // Interactivity Dispatch Logic
+        const salaryBtn = document.getElementById('salaryBtn');
+        const funnyPopup = document.getElementById('funnyPopup');
+        const popupMessage = document.getElementById('popupMessage');
 
-      // Dynamic Space Parallax Mapping Engine
-      document.addEventListener("mousemove", (e) => {
-        const cards = document.querySelectorAll(".glass-panel, .royal-card");
-        const mouseX = e.clientX / window.innerWidth - 0.5;
-        const mouseY = e.clientY / window.innerHeight - 0.5;
+        const phrases = [
+            "Recovery team is waiting.",
+            "Ajay is searching for salary.",
+            "Loan Approved... Payment Pending.",
+            "Wallet not found.",
+            "Salary loading...",
+            "Friends never forget money."
+        ];
 
-        cards.forEach((card) => {
-          const rect = card.getBoundingClientRect();
-          if (rect.top < window.innerHeight && rect.bottom > 0) {
-            card.style.transform = `translateY(${mouseY * 8}px) rotateX(${mouseY * 6}deg) rotateY(${mouseX * 6}deg)`;
-          }
+        function triggerConfetti() {
+            for(let i=0; i<40; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = ['#ef4444', '#3b82f6', '#f59e0b', '#10b981'][Math.floor(Math.random()*4)];
+                confetti.style.transform = 'scale(' + (Math.random() * 0.5 + 0.5) + ')';
+                confetti.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 2500);
+            }
+        }
+
+        salaryBtn.addEventListener('click', () => {
+            const parentPanel = salaryBtn.closest('.udhar-dashboard');
+            parentPanel.classList.add('shake-element');
+            setTimeout(() => parentPanel.classList.remove('shake-element'), 400);
+
+            triggerConfetti();
+
+            const randomMsg = phrases[Math.floor(Math.random() * phrases.length)];
+            popupMessage.innerText = randomMsg;
+            funnyPopup.classList.add('show');
+
+            setTimeout(() => {
+                funnyPopup.classList.remove('show');
+            }, 3000);
         });
-      });
+
+        // Dynamic Space Parallax Mapping Engine
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.glass-panel, .royal-card');
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if(rect.top < window.innerHeight && rect.bottom > 0) {
+                    card.style.transform = `translateY(${mouseY * 8}px) rotateX(${mouseY * 6}deg) rotateY(${mouseX * 6}deg)`;
+                }
+            });
+        });
     </script>
-  </body>
+</body>
 </html>
