@@ -1,1078 +1,1152 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ajay Dossier - Confidential Report</title>
     <style>
-        /* Typography & Variables */
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
+      /* Typography & Variables */
+      @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap");
 
-        :root {
-            --bg-gradient: linear-gradient(-45deg, #0f0c20, #150f30, #0a0813, #1a0b2e);
-            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 70%, #aa771c 100%);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.07);
-            --glass-highlight: rgba(255, 255, 255, 0.15);
-            --text-primary: #ffffff;
-            --text-secondary: #b3b3cc;
-            --accent-pink: #ff3366;
-            --accent-green: #00ffcc;
-            --accent-purple: #9933ff;
-            --accent-gold: #d4af37;
-            --glow-shadow: 0 0 20px rgba(153, 51, 255, 0.2);
-            --card-radius: 24px;
-        }
+      :root {
+        --bg-gradient: linear-gradient(-45deg, #0f0c20, #150f30, #0a0813, #1a0b2e);
+        --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 70%, #aa771c 100%);
+        --glass-bg: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.07);
+        --glass-highlight: rgba(255, 255, 255, 0.15);
+        --text-primary: #ffffff;
+        --text-secondary: #b3b3cc;
+        --accent-pink: #ff3366;
+        --accent-green: #00ffcc;
+        --accent-purple: #9933ff;
+        --accent-gold: #d4af37;
+        --glow-shadow: 0 0 20px rgba(153, 51, 255, 0.2);
+        --card-radius: 24px;
+      }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        user-select: none;
+      }
 
-        html {
-            scroll-behavior: smooth;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #09070f;
-            color: var(--text-primary);
-            overflow-x: hidden;
-        }
+      html {
+        scroll-behavior: smooth;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: #09070f;
+        color: var(--text-primary);
+        overflow-x: hidden;
+      }
 
-        body {
-            min-height: 100vh;
-            background: var(--bg-gradient);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            position: relative;
-            padding-bottom: 60px;
-        }
+      body {
+        min-height: 100vh;
+        background: var(--bg-gradient);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        position: relative;
+        padding-bottom: 60px;
+      }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #09070f;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--glass-highlight);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-purple);
-        }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #09070f;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--glass-highlight);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--accent-purple);
+      }
 
-        /* Background Canvas and Floating Particles */
-        .background-decorations {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
+      /* Background Canvas and Floating Particles */
+      .background-decorations {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
 
-        .floating-emoji {
-            position: absolute;
-            font-size: 2rem;
-            opacity: 0.15;
-            animation: floatAround 25s linear infinite;
-        }
+      .floating-emoji {
+        position: absolute;
+        font-size: 2rem;
+        opacity: 0.15;
+        animation: floatAround 25s linear infinite;
+      }
 
-        /* Glassmorphism utility */
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--card-radius);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
+      /* Glassmorphism utility */
+      .glass-panel {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--card-radius);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      }
 
-        .glass-panel:hover {
-            border-color: var(--glass-highlight);
-            box-shadow: 0 12px 40px 0 rgba(153, 51, 255, 0.15);
-            transform: translateY(-4px);
-        }
+      .glass-panel:hover {
+        border-color: var(--glass-highlight);
+        box-shadow: 0 12px 40px 0 rgba(153, 51, 255, 0.15);
+        transform: translateY(-4px);
+      }
 
-        /* Core Layout Elements */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            position: relative;
-            z-index: 1;
-        }
+      /* Core Layout Elements */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+        position: relative;
+        z-index: 1;
+      }
 
-        section {
-            padding: 80px 0 40px 0;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-        }
+      section {
+        padding: 80px 0 40px 0;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+      }
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+      section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 12px;
+        letter-spacing: -0.5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
 
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            text-align: center;
-            margin-bottom: 48px;
-            font-weight: 400;
-        }
+      .section-subtitle {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        text-align: center;
+        margin-bottom: 48px;
+        font-weight: 400;
+      }
 
-        /* Header Style */
-        header {
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            padding-top: 40px;
-        }
+      /* Header Style */
+      header {
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        padding-top: 40px;
+      }
 
-        .dossier-tag {
-            background: rgba(255, 51, 102, 0.1);
-            border: 1px solid rgba(255, 51, 102, 0.3);
-            color: var(--accent-pink);
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 24px;
-            box-shadow: 0 0 15px rgba(255, 51, 102, 0.2);
-            animation: pulseGlow 2s infinite alternate;
-        }
+      .dossier-tag {
+        background: rgba(255, 51, 102, 0.1);
+        border: 1px solid rgba(255, 51, 102, 0.3);
+        color: var(--accent-pink);
+        padding: 6px 16px;
+        border-radius: 100px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 24px;
+        box-shadow: 0 0 15px rgba(255, 51, 102, 0.2);
+        animation: pulseGlow 2s infinite alternate;
+      }
 
-        .main-title {
-            font-size: 5rem;
-            font-weight: 900;
-            letter-spacing: -2px;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #fff 30%, #a399ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(153, 51, 255, 0.3));
-        }
+      .main-title {
+        font-size: 5rem;
+        font-weight: 900;
+        letter-spacing: -2px;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, #fff 30%, #a399ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 30px rgba(153, 51, 255, 0.3));
+      }
 
-        .main-subtitle {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-style: italic;
-            color: var(--text-secondary);
-            max-width: 600px;
-            line-height: 1.4;
-        }
+      .main-subtitle {
+        font-family: "Playfair Display", serif;
+        font-size: 1.5rem;
+        font-style: italic;
+        color: var(--text-secondary);
+        max-width: 600px;
+        line-height: 1.4;
+      }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            opacity: 0.7;
-        }
+      .scroll-indicator {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        opacity: 0.7;
+      }
 
-        .scroll-mouse {
-            width: 24px;
-            height: 40px;
-            border: 2px solid var(--text-secondary);
-            border-radius: 12px;
-            position: relative;
-        }
+      .scroll-mouse {
+        width: 24px;
+        height: 40px;
+        border: 2px solid var(--text-secondary);
+        border-radius: 12px;
+        position: relative;
+      }
 
-        .scroll-wheel {
-            width: 4px;
-            height: 8px;
-            background: var(--accent-purple);
-            border-radius: 2px;
-            position: absolute;
-            top: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: scrollWheel 1.5s infinite;
-        }
+      .scroll-wheel {
+        width: 4px;
+        height: 8px;
+        background: var(--accent-purple);
+        border-radius: 2px;
+        position: absolute;
+        top: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: scrollWheel 1.5s infinite;
+      }
 
-        /* Section 1: Udhar Department */
-        .udhar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 40px;
-        }
+      /* Section 1: Udhar Department */
+      .udhar-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin-bottom: 40px;
+      }
 
-        .money-card {
-            padding: 32px;
-            position: relative;
-            overflow: hidden;
-        }
+      .money-card {
+        padding: 32px;
+        position: relative;
+        overflow: hidden;
+      }
 
-        .money-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, rgba(0,255,204,0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
+      .money-card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, rgba(0, 255, 204, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+      }
 
-        .money-card .creditor-name {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+      .money-card .creditor-name {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
-        .money-card .label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            letter-spacing: 1px;
-        }
+      .money-card .label {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+        letter-spacing: 1px;
+      }
 
-        .money-card .amount {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--accent-green);
-            margin-top: 8px;
-            font-family: monospace;
-            text-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
-        }
+      .money-card .amount {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--accent-green);
+        margin-top: 8px;
+        font-family: monospace;
+        text-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+      }
 
+      .udhar-dashboard {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        align-items: center;
+        padding: 40px;
+      }
+
+      @media (max-width: 768px) {
         .udhar-dashboard {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            align-items: center;
-            padding: 40px;
+          grid-template-columns: 1fr;
+          padding: 24px;
         }
+      }
 
-        @media (max-width: 768px) {
-            .udhar-dashboard {
-                grid-template-columns: 1fr;
-                padding: 24px;
-            }
-        }
+      .total-counter-container {
+        text-align: center;
+      }
 
-        .total-counter-container {
-            text-align: center;
-        }
+      .total-counter-container h3 {
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+      }
 
-        .total-counter-container h3 {
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
+      .total-amount {
+        font-size: 4rem;
+        font-weight: 900;
+        color: #ffffff;
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        font-family: monospace;
+      }
 
-        .total-amount {
-            font-size: 4rem;
-            font-weight: 900;
-            color: #ffffff;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-            font-family: monospace;
-        }
+      .status-pane {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        text-align: center;
+      }
 
-        .status-pane {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            text-align: center;
-        }
+      .status-badge-animated {
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid var(--accent-gold);
+        color: var(--accent-gold);
+        padding: 10px 24px;
+        border-radius: 100px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+        animation: statusPulse 1.5s infinite alternate;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+      }
 
-        .status-badge-animated {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            padding: 10px 24px;
-            border-radius: 100px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            animation: statusPulse 1.5s infinite alternate;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
-        }
+      .status-quote {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: 1.3rem;
+        color: var(--text-secondary);
+      }
 
-        .status-quote {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-        }
+      .action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: linear-gradient(135deg, var(--accent-purple) 0%, #6600cc 100%);
+        border: none;
+        color: white;
+        padding: 16px 36px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        border-radius: 100px;
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(153, 51, 255, 0.4);
+        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        margin-top: 24px;
+        position: relative;
+        overflow: hidden;
+      }
 
-        .action-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: linear-gradient(135deg, var(--accent-purple) 0%, #6600cc 100%);
-            border: none;
-            color: white;
-            padding: 16px 36px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border-radius: 100px;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(153, 51, 255, 0.4);
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            margin-top: 24px;
-            position: relative;
-            overflow: hidden;
-        }
+      .action-btn:hover {
+        transform: scale(1.03) translateY(-2px);
+        box-shadow: 0 12px 30px rgba(153, 51, 255, 0.6);
+      }
 
-        .action-btn:hover {
-            transform: scale(1.03) translateY(-2px);
-            box-shadow: 0 12px 30px rgba(153, 51, 255, 0.6);
-        }
+      .action-btn:active {
+        transform: scale(0.98) translateY(0);
+      }
 
-        .action-btn:active {
-            transform: scale(0.98) translateY(0);
-        }
+      /* Shake animation applied globally to active actions */
+      .shake-element {
+        animation: fastShake 0.4s ease-in-out;
+      }
 
-        /* Shake animation applied globally to active actions */
-        .shake-element {
-            animation: fastShake 0.4s ease-in-out;
-        }
+      /* Section 2: Relationship Portfolio */
+      .relationship-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 24px;
+      }
 
-        /* Section 2: Relationship Portfolio */
-        .relationship-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
-        }
+      .relationship-card {
+        padding: 32px 24px;
+        text-align: center;
+        position: relative;
+      }
 
-        .relationship-card {
-            padding: 32px 24px;
-            text-align: center;
-            position: relative;
-        }
+      .relationship-card .avatar-emoji {
+        font-size: 3.5rem;
+        margin-bottom: 16px;
+        display: inline-block;
+        transition: transform 0.3s ease;
+      }
 
-        .relationship-card .avatar-emoji {
-            font-size: 3.5rem;
-            margin-bottom: 16px;
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
+      .relationship-card:hover .avatar-emoji {
+        transform: scale(1.2) rotate(10deg);
+      }
 
-        .relationship-card:hover .avatar-emoji {
-            transform: scale(1.2) rotate(10deg);
-        }
+      .relationship-card h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
 
-        .relationship-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
+      .portfolio-badge {
+        display: inline-block;
+        padding: 6px 14px;
+        border-radius: 100px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
 
-        .portfolio-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+      .badge-ex {
+        background: rgba(255, 51, 102, 0.1);
+        border: 1px solid var(--accent-pink);
+        color: var(--accent-pink);
+      }
+      .badge-vip {
+        background: rgba(0, 255, 204, 0.1);
+        border: 1px solid var(--accent-green);
+        color: var(--accent-green);
+      }
+      .badge-special {
+        background: rgba(153, 51, 255, 0.1);
+        border: 1px solid var(--accent-purple);
+        color: var(--accent-purple);
+      }
+      .badge-premium {
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid var(--accent-gold);
+        color: var(--accent-gold);
+      }
 
-        .badge-ex { background: rgba(255,51,102,0.1); border: 1px solid var(--accent-pink); color: var(--accent-pink); }
-        .badge-vip { background: rgba(0,255,204,0.1); border: 1px solid var(--accent-green); color: var(--accent-green); }
-        .badge-special { background: rgba(153,51,255,0.1); border: 1px solid var(--accent-purple); color: var(--accent-purple); }
-        .badge-premium { background: rgba(212,175,55,0.1); border: 1px solid var(--accent-gold); color: var(--accent-gold); }
+      /* Section 3: Official Wife */
+      .wife-section {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+      }
 
-        /* Section 3: Official Wife */
-        .wife-section {
-            display: flex;
-            justify-content: center;
-            margin-top: 40px;
-        }
+      .royal-card {
+        width: 100%;
+        max-width: 600px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(212, 175, 55, 0.05) 100%);
+        border: 2px solid rgba(212, 175, 55, 0.3);
+        border-radius: calc(var(--card-radius) * 1.5);
+        padding: 48px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(212, 175, 55, 0.1);
+      }
 
-        .royal-card {
-            width: 100%;
-            max-width: 600px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(212,175,55,0.05) 100%);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            border-radius: calc(var(--card-radius) * 1.5);
-            padding: 48px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.1);
-        }
+      .royal-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
+        transform: skewX(-25deg);
+        animation: shine 4s infinite;
+      }
 
-        .royal-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
-            transform: skewX(-25deg);
-            animation: shine 4s infinite;
-        }
+      .crown-container {
+        font-size: 4.5rem;
+        margin-bottom: 16px;
+        filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.5));
+        animation: bounceSlow 2s infinite alternate;
+      }
 
-        .crown-container {
-            font-size: 4.5rem;
-            margin-bottom: 16px;
-            filter: drop-shadow(0 0 15px rgba(212,175,55,0.5));
-            animation: bounceSlow 2s infinite alternate;
-        }
+      .royal-card h3 {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--accent-gold);
+        margin-bottom: 8px;
+        font-weight: 700;
+      }
 
-        .royal-card h3 {
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--accent-gold);
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
+      .royal-name {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 16px;
+        background: var(--gold-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+      }
 
-        .royal-name {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
-        }
+      .royal-desc {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
 
-        .royal-desc {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+      /* Section 4: Stats Grid */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
 
-        /* Section 4: Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
+      .stat-card {
+        padding: 28px;
+        text-align: center;
+      }
 
-        .stat-card {
-            padding: 28px;
-            text-align: center;
-        }
+      .stat-card .stat-val {
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin-bottom: 6px;
+        background: linear-gradient(to bottom, #fff, #bbb);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
 
-        .stat-card .stat-val {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 6px;
-            background: linear-gradient(to bottom, #fff, #bbb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+      .stat-card:nth-child(1) .stat-val {
+        background: linear-gradient(to bottom, #ff758c, #ff7eb3);
+        -webkit-background-clip: text;
+      }
+      .stat-card:nth-child(2) .stat-val {
+        background: var(--gold-gradient);
+        -webkit-background-clip: text;
+      }
+      .stat-card:nth-child(3) .stat-val {
+        background: linear-gradient(to bottom, #00ffcc, #00b4db);
+        -webkit-background-clip: text;
+      }
+      .stat-card:nth-child(4) .stat-val {
+        background: linear-gradient(to bottom, #ff9966, #ff5e62);
+        -webkit-background-clip: text;
+      }
+      .stat-card:nth-child(5) .stat-val {
+        background: linear-gradient(to bottom, #b388ff, #801515);
+        -webkit-background-clip: text;
+        color: #ff3333;
+        -webkit-text-fill-color: initial;
+        text-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+      }
 
-        .stat-card:nth-child(1) .stat-val { background: linear-gradient(to bottom, #ff758c, #ff7eb3); -webkit-background-clip: text; }
-        .stat-card:nth-child(2) .stat-val { background: var(--gold-gradient); -webkit-background-clip: text; }
-        .stat-card:nth-child(3) .stat-val { background: linear-gradient(to bottom, #00ffcc, #00b4db); -webkit-background-clip: text; }
-        .stat-card:nth-child(4) .stat-val { background: linear-gradient(to bottom, #ff9966, #ff5e62); -webkit-background-clip: text; }
-        .stat-card:nth-child(5) .stat-val { background: linear-gradient(to bottom, #b388ff, #801515); -webkit-background-clip: text; color: #ff3333; -webkit-text-fill-color: initial; text-shadow: 0 0 10px rgba(255,0,0,0.4); }
+      .stat-card .stat-lbl {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
 
-        .stat-card .stat-lbl {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+      /* Section 5: Achievements */
+      .badge-flex {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
 
-        /* Section 5: Achievements */
-        .badge-flex {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
+      .achievement-badge {
+        padding: 20px 32px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        border-radius: 100px;
+      }
 
-        .achievement-badge {
-            padding: 20px 32px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            border-radius: 100px;
-        }
+      .achievement-badge .icon {
+        font-size: 2rem;
+      }
 
-        .achievement-badge .icon {
-            font-size: 2rem;
-        }
+      .achievement-badge .info h4 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
 
-        .achievement-badge .info h4 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
+      .achievement-badge .info p {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+      }
 
-        .achievement-badge .info p {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
+      /* Section 6: Timeline */
+      .timeline-container {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        padding: 40px 0;
+      }
 
-        /* Section 6: Timeline */
-        .timeline-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            padding: 40px 0;
-        }
+      .timeline-container::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, var(--glass-border), var(--accent-purple), var(--accent-pink), transparent);
+        transform: translateX(-50%);
+      }
 
+      .timeline-item {
+        width: 50%;
+        padding: 20px 40px;
+        position: relative;
+        box-sizing: border-box;
+      }
+
+      .timeline-item.left {
+        left: 0;
+        text-align: right;
+      }
+
+      .timeline-item.right {
+        left: 50%;
+        text-align: left;
+      }
+
+      .timeline-dot {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--text-primary);
+        position: absolute;
+        top: 30px;
+        z-index: 2;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+
+      .timeline-item.left .timeline-dot {
+        right: -8px;
+      }
+
+      .timeline-item.right .timeline-dot {
+        left: -8px;
+      }
+
+      .timeline-content {
+        padding: 24px;
+      }
+
+      .timeline-content h4 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .timeline-content p {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      @media (max-width: 768px) {
         .timeline-container::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--glass-border), var(--accent-purple), var(--accent-pink), transparent);
-            transform: translateX(-50%);
+          left: 20px;
         }
-
         .timeline-item {
-            width: 50%;
-            padding: 20px 40px;
-            position: relative;
-            box-sizing: border-box;
+          width: 100%;
+          left: 0 !important;
+          padding-left: 50px;
+          padding-right: 0;
+          text-align: left !important;
         }
-
-        .timeline-item.left {
-            left: 0;
-            text-align: right;
-        }
-
-        .timeline-item.right {
-            left: 50%;
-            text-align: left;
-        }
-
         .timeline-dot {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--text-primary);
-            position: absolute;
-            top: 30px;
-            z-index: 2;
-            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+          left: 12px !important;
         }
+      }
 
-        .timeline-item.left .timeline-dot {
-            right: -8px;
-        }
+      /* Custom Toast Popup Layout */
+      .popup-notification {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        background: rgba(15, 10, 30, 0.9);
+        border: 1px solid var(--accent-purple);
+        box-shadow: 0 10px 40px rgba(153, 51, 255, 0.3);
+        border-radius: 16px;
+        padding: 20px 30px;
+        color: white;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 600;
+        transform: translateY(100px) scale(0.8);
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        backdrop-filter: blur(10px);
+      }
 
-        .timeline-item.right .timeline-dot {
-            left: -8px;
-        }
+      .popup-notification.show {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
 
-        .timeline-content {
-            padding: 24px;
-        }
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 60px 24px 20px 24px;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        position: relative;
+        z-index: 1;
+        line-height: 1.6;
+      }
 
-        .timeline-content h4 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 6px;
+      /* Animations Keyframes */
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
         }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
 
-        .timeline-content p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+      @keyframes floatAround {
+        0% {
+          transform: translateY(105vh) translateX(0) rotate(0deg);
         }
+        100% {
+          transform: translateY(-10vh) translateX(100px) rotate(360deg);
+        }
+      }
 
-        @media (max-width: 768px) {
-            .timeline-container::before {
-                left: 20px;
-            }
-            .timeline-item {
-                width: 100%;
-                left: 0 !important;
-                padding-left: 50px;
-                padding-right: 0;
-                text-align: left !important;
-            }
-            .timeline-dot {
-                left: 12px !important;
-            }
+      @keyframes pulseGlow {
+        0% {
+          box-shadow: 0 0 10px rgba(255, 51, 102, 0.2);
         }
+        100% {
+          box-shadow: 0 0 25px rgba(255, 51, 102, 0.5);
+          border-color: rgba(255, 51, 102, 0.6);
+        }
+      }
 
-        /* Custom Toast Popup Layout */
-        .popup-notification {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            background: rgba(15, 10, 30, 0.9);
-            border: 1px solid var(--accent-purple);
-            box-shadow: 0 10px 40px rgba(153, 51, 255, 0.3);
-            border-radius: 16px;
-            padding: 20px 30px;
-            color: white;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 600;
-            transform: translateY(100px) scale(0.8);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(10px);
+      @keyframes statusPulse {
+        0% {
+          transform: scale(1);
+          opacity: 0.9;
         }
+        100% {
+          transform: scale(1.04);
+          opacity: 1;
+          box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+        }
+      }
 
-        .popup-notification.show {
-            transform: translateY(0) scale(1);
-            opacity: 1;
+      @keyframes scrollWheel {
+        0% {
+          top: 6px;
+          opacity: 1;
         }
+        50% {
+          top: 18px;
+          opacity: 0;
+        }
+        100% {
+          top: 6px;
+          opacity: 1;
+        }
+      }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 60px 24px 20px 24px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            position: relative;
-            z-index: 1;
-            line-height: 1.6;
+      @keyframes bounceSlow {
+        0% {
+          transform: translateY(0);
         }
+        100% {
+          transform: translateY(-8px);
+        }
+      }
 
-        /* Animations Keyframes */
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+      @keyframes shine {
+        0% {
+          left: -100%;
         }
+        50% {
+          left: 150%;
+        }
+        100% {
+          left: 150%;
+        }
+      }
 
-        @keyframes floatAround {
-            0% { transform: translateY(105vh) translateX(0) rotate(0deg); }
-            100% { transform: translateY(-10vh) translateX(100px) rotate(360deg); }
+      @keyframes fastShake {
+        0%,
+        100% {
+          transform: translateX(0);
         }
+        20%,
+        60% {
+          transform: translateX(-6px);
+        }
+        40%,
+        80% {
+          transform: translateX(6px);
+        }
+      }
 
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 10px rgba(255, 51, 102, 0.2); }
-            100% { box-shadow: 0 0 25px rgba(255, 51, 102, 0.5); border-color: rgba(255, 51, 102, 0.6); }
-        }
+      .confetti-piece {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        z-index: 999;
+        top: -10px;
+        border-radius: 2px;
+        animation: fall linear forwards;
+      }
 
-        @keyframes statusPulse {
-            0% { transform: scale(1); opacity: 0.9; }
-            100% { transform: scale(1.04); opacity: 1; box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); }
+      @keyframes fall {
+        to {
+          transform: translateY(105vh) rotate(360deg);
         }
-
-        @keyframes scrollWheel {
-            0% { top: 6px; opacity: 1; }
-            50% { top: 18px; opacity: 0; }
-            100% { top: 6px; opacity: 1; }
-        }
-
-        @keyframes bounceSlow {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-8px); }
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            50% { left: 150%; }
-            100% { left: 150%; }
-        }
-
-        @keyframes fastShake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-6px); }
-            40%, 80% { transform: translateX(6px); }
-        }
-
-        .confetti-piece {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            z-index: 999;
-            top: -10px;
-            border-radius: 2px;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(105vh) rotate(360deg);
-            }
-        }
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <!-- Background Elements -->
     <div class="background-decorations" id="bgDecorations"></div>
 
     <div class="container">
-        <!-- Header -->
-        <header>
-            <div class="dossier-tag">Confidential Report</div>
-            <h1 class="main-title">😂 AJAY DOSSIER 😂</h1>
-            <p class="main-subtitle">"Generated by the Friends Recovery Department. Absolutely no intelligence found within."</p>
-            <div class="scroll-indicator">
-                <span>Investigate</span>
-                <div class="scroll-mouse">
-                    <div class="scroll-wheel"></div>
-                </div>
+      <!-- Header -->
+      <header>
+        <div class="dossier-tag">Confidential Report</div>
+        <h1 class="main-title">😂 AJAY DOSSIER 😂</h1>
+        <p class="main-subtitle">"Generated by the Friends Recovery Department. Absolutely no intelligence found within."</p>
+        <div class="scroll-indicator">
+          <span>Investigate</span>
+          <div class="scroll-mouse">
+            <div class="scroll-wheel"></div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Section 1: Udhar Department -->
+      <section id="udhar">
+        <h2 class="section-title">💸 Udhar Department</h2>
+        <p class="section-subtitle">Real-time accounting of micro-loans that turned into lifetime sponsorships.</p>
+
+        <div class="udhar-grid">
+          <div class="glass-panel money-card">
+            <div class="creditor-name">👦 Faizan</div>
+            <div class="label">Outstanding Debt</div>
+            <div class="amount">₹750</div>
+          </div>
+          <div class="glass-panel money-card">
+            <div class="creditor-name">👦 Utkarsh</div>
+            <div class="label">Outstanding Debt</div>
+            <div class="amount">₹250</div>
+          </div>
+          <div class="glass-panel money-card">
+            <div class="creditor-name">👦 Jaiveer</div>
+            <div class="label">Outstanding Debt</div>
+            <div class="amount">₹10,000</div>
+          </div>
+        </div>
+
+        <div class="glass-panel udhar-dashboard">
+          <div class="total-counter-container">
+            <h3>Total Accumulated Debt</h3>
+            <div class="total-amount" id="totalDebtVal">₹0</div>
+          </div>
+          <div class="status-pane">
+            <div class="status-badge-animated">CURRENT STATUS: HOPELESS PENDING</div>
+            <p class="status-quote">"AUR YE MILENGE SALARY PR."</p>
+            <button class="action-btn" id="salaryBtn">
+              <span>😂 Salary Kab Aayegi?</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Relationship Portfolio -->
+      <section id="relationship">
+        <h2 class="section-title">❤️ Relationship Portfolio</h2>
+        <p class="section-subtitle">Purely for Educational & Auditing Purposes 😂</p>
+
+        <div class="relationship-grid">
+          <div class="glass-panel relationship-card">
+            <span class="avatar-emoji">🌹</span>
+            <h3>Minakshi</h3>
+            <span class="portfolio-badge badge-ex">Ex Candidate</span>
+          </div>
+          <div class="glass-panel relationship-card">
+            <span class="avatar-emoji">🌸</span>
+            <h3>Puja</h3>
+            <span class="portfolio-badge badge-vip">VIP Friend</span>
+          </div>
+          <div class="glass-panel relationship-card">
+            <span class="avatar-emoji">✨</span>
+            <h3>Riya</h3>
+            <span class="portfolio-badge badge-special">Special Entry</span>
+          </div>
+          <div class="glass-panel relationship-card">
+            <span class="avatar-emoji">💖</span>
+            <h3>Kajal</h3>
+            <span class="portfolio-badge badge-premium">Premium Member</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Official Wife -->
+      <section id="official-wife" class="wife-section">
+        <div class="royal-card">
+          <div class="crown-container">👑</div>
+          <h3>Official Wife</h3>
+          <div class="royal-name">Vanshika ❤️</div>
+          <p class="royal-desc">🔒 Lifetime Premium Subscription Activated</p>
+        </div>
+      </section>
+
+      <!-- Section 4: Ajay Stats -->
+      <section id="stats">
+        <h2 class="section-title">📊 Ajay Metrics & Analytics</h2>
+        <p class="section-subtitle">Highly inaccurate but realistic algorithmic statistics</p>
+
+        <div class="stats-grid">
+          <div class="glass-panel stat-card">
+            <div class="stat-val">4</div>
+            <div class="stat-lbl">Girlfriends</div>
+          </div>
+          <div class="glass-panel stat-card">
+            <div class="stat-val">1</div>
+            <div class="stat-lbl">Official Wife</div>
+          </div>
+          <div class="glass-panel stat-card">
+            <div class="stat-val" style="font-size: 2.2rem; line-height: 2.8rem">₹11K</div>
+            <div class="stat-lbl">Total Debt</div>
+          </div>
+          <div class="glass-panel stat-card">
+            <div class="stat-val" style="font-size: 1.8rem; line-height: 2.8rem; font-weight: 700">Soon™</div>
+            <div class="stat-lbl">Salary Status</div>
+          </div>
+          <div class="glass-panel stat-card">
+            <div class="stat-val">999+</div>
+            <div class="stat-lbl">Recovery Calls</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Achievements -->
+      <section id="achievements">
+        <h2 class="section-title">🏆 Verified Achievements</h2>
+        <p class="section-subtitle">Milestones achieved over years of professional dodging</p>
+
+        <div class="badge-flex">
+          <div class="glass-panel achievement-badge">
+            <span class="icon">🏆</span>
+            <div class="info">
+              <h4>Master of Borrowing</h4>
+              <p>Flawless execution without collateral.</p>
             </div>
-        </header>
-
-        <!-- Section 1: Udhar Department -->
-        <section id="udhar">
-            <h2 class="section-title">💸 Udhar Department</h2>
-            <p class="section-subtitle">Real-time accounting of micro-loans that turned into lifetime sponsorships.</p>
-            
-            <div class="udhar-grid">
-                <div class="glass-panel money-card">
-                    <div class="creditor-name">👦 Faizan</div>
-                    <div class="label">Outstanding Debt</div>
-                    <div class="amount">₹750</div>
-                </div>
-                <div class="glass-panel money-card">
-                    <div class="creditor-name">👦 Utkarsh</div>
-                    <div class="label">Outstanding Debt</div>
-                    <div class="amount">₹250</div>
-                </div>
-                <div class="glass-panel money-card">
-                    <div class="creditor-name">👦 Jaiveer</div>
-                    <div class="label">Outstanding Debt</div>
-                    <div class="amount">₹10,000</div>
-                </div>
+          </div>
+          <div class="glass-panel achievement-badge">
+            <span class="icon">🥇</span>
+            <div class="info">
+              <h4>Salary Delay Champion</h4>
+              <p>Blaming the banking servers since Day 1.</p>
             </div>
-
-            <div class="glass-panel udhar-dashboard">
-                <div class="total-counter-container">
-                    <h3>Total Accumulated Debt</h3>
-                    <div class="total-amount" id="totalDebtVal">₹0</div>
-                </div>
-                <div class="status-pane">
-                    <div class="status-badge-animated">CURRENT STATUS: HOPELESS PENDING</div>
-                    <p class="status-quote">"AUR YE MILENGE SALARY PR."</p>
-                    <button class="action-btn" id="salaryBtn">
-                        <span>😂 Salary Kab Aayegi?</span>
-                    </button>
-                </div>
+          </div>
+          <div class="glass-panel achievement-badge">
+            <span class="icon">🎯</span>
+            <div class="info">
+              <h4>Escape Artist</h4>
+              <p>Disappears instantly when bill arrives.</p>
             </div>
-        </section>
-
-        <!-- Section 2: Relationship Portfolio -->
-        <section id="relationship">
-            <h2 class="section-title">❤️ Relationship Portfolio</h2>
-            <p class="section-subtitle">Purely for Educational & Auditing Purposes 😂</p>
-
-            <div class="relationship-grid">
-                <div class="glass-panel relationship-card">
-                    <span class="avatar-emoji">🌹</span>
-                    <h3>Minakshi</h3>
-                    <span class="portfolio-badge badge-ex">Ex Candidate</span>
-                </div>
-                <div class="glass-panel relationship-card">
-                    <span class="avatar-emoji">🌸</span>
-                    <h3>Puja</h3>
-                    <span class="portfolio-badge badge-vip">VIP Friend</span>
-                </div>
-                <div class="glass-panel relationship-card">
-                    <span class="avatar-emoji">✨</span>
-                    <h3>Riya</h3>
-                    <span class="portfolio-badge badge-special">Special Entry</span>
-                </div>
-                <div class="glass-panel relationship-card">
-                    <span class="avatar-emoji">💖</span>
-                    <h3>Kajal</h3>
-                    <span class="portfolio-badge badge-premium">Premium Member</span>
-                </div>
+          </div>
+          <div class="glass-panel achievement-badge">
+            <span class="icon">😂</span>
+            <div class="info">
+              <h4>Professional Promise Maker</h4>
+              <p>"Bhai kal pakka de dunga."</p>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <!-- Section 3: Official Wife -->
-        <section id="official-wife" class="wife-section">
-            <div class="royal-card">
-                <div class="crown-container">👑</div>
-                <h3>Official Wife</h3>
-                <div class="royal-name">Vanshika ❤️</div>
-                <p class="royal-desc">🔒 Lifetime Premium Subscription Activated</p>
+      <!-- Section 6: Timeline -->
+      <section id="timeline">
+        <h2 class="section-title">⏳ History Timeline</h2>
+        <p class="section-subtitle">The progression of economic crisis</p>
+
+        <div class="timeline-container">
+          <div class="timeline-item left">
+            <div class="timeline-dot"></div>
+            <div class="glass-panel timeline-content">
+              <h4>Borrowed ₹750</h4>
+              <p>Phase 1: Minor emergency requirements.</p>
             </div>
-        </section>
-
-        <!-- Section 4: Ajay Stats -->
-        <section id="stats">
-            <h2 class="section-title">📊 Ajay Metrics & Analytics</h2>
-            <p class="section-subtitle">Highly inaccurate but realistic algorithmic statistics</p>
-            
-            <div class="stats-grid">
-                <div class="glass-panel stat-card">
-                    <div class="stat-val">4</div>
-                    <div class="stat-lbl">Girlfriends</div>
-                </div>
-                <div class="glass-panel stat-card">
-                    <div class="stat-val">1</div>
-                    <div class="stat-lbl">Official Wife</div>
-                </div>
-                <div class="glass-panel stat-card">
-                    <div class="stat-val" style="font-size: 2.2rem; line-height: 2.8rem;">₹11K</div>
-                    <div class="stat-lbl">Total Debt</div>
-                </div>
-                <div class="glass-panel stat-card">
-                    <div class="stat-val" style="font-size: 1.8rem; line-height: 2.8rem; font-weight:700;">Soon™</div>
-                    <div class="stat-lbl">Salary Status</div>
-                </div>
-                <div class="glass-panel stat-card">
-                    <div class="stat-val">999+</div>
-                    <div class="stat-lbl">Recovery Calls</div>
-                </div>
+          </div>
+          <div class="timeline-item right">
+            <div class="timeline-dot"></div>
+            <div class="glass-panel timeline-content">
+              <h4>Borrowed ₹250</h4>
+              <p>Phase 2: Chai/Sutta emergency cash injections.</p>
             </div>
-        </section>
-
-        <!-- Section 5: Achievements -->
-        <section id="achievements">
-            <h2 class="section-title">🏆 Verified Achievements</h2>
-            <p class="section-subtitle">Milestones achieved over years of professional dodging</p>
-            
-            <div class="badge-flex">
-                <div class="glass-panel achievement-badge">
-                    <span class="icon">🏆</span>
-                    <div class="info">
-                        <h4>Master of Borrowing</h4>
-                        <p>Flawless execution without collateral.</p>
-                    </div>
-                </div>
-                <div class="glass-panel achievement-badge">
-                    <span class="icon">🥇</span>
-                    <div class="info">
-                        <h4>Salary Delay Champion</h4>
-                        <p>Blaming the banking servers since Day 1.</p>
-                    </div>
-                </div>
-                <div class="glass-panel achievement-badge">
-                    <span class="icon">🎯</span>
-                    <div class="info">
-                        <h4>Escape Artist</h4>
-                        <p>Disappears instantly when bill arrives.</p>
-                    </div>
-                </div>
-                <div class="glass-panel achievement-badge">
-                    <span class="icon">😂</span>
-                    <div class="info">
-                        <h4>Professional Promise Maker</h4>
-                        <p>"Bhai kal pakka de dunga."</p>
-                    </div>
-                </div>
+          </div>
+          <div class="timeline-item left">
+            <div class="timeline-dot"></div>
+            <div class="glass-panel timeline-content">
+              <h4>Borrowed ₹10,000</h4>
+              <p>Phase 3: Grand heist for unknown operations.</p>
             </div>
-        </section>
-
-        <!-- Section 6: Timeline -->
-        <section id="timeline">
-            <h2 class="section-title">⏳ History Timeline</h2>
-            <p class="section-subtitle">The progression of economic crisis</p>
-
-            <div class="timeline-container">
-                <div class="timeline-item left">
-                    <div class="timeline-dot"></div>
-                    <div class="glass-panel timeline-content">
-                        <h4>Borrowed ₹750</h4>
-                        <p>Phase 1: Minor emergency requirements.</p>
-                    </div>
-                </div>
-                <div class="timeline-item right">
-                    <div class="timeline-dot"></div>
-                    <div class="glass-panel timeline-content">
-                        <h4>Borrowed ₹250</h4>
-                        <p>Phase 2: Chai/Sutta emergency cash injections.</p>
-                    </div>
-                </div>
-                <div class="timeline-item left">
-                    <div class="timeline-dot"></div>
-                    <div class="glass-panel timeline-content">
-                        <h4>Borrowed ₹10,000</h4>
-                        <p>Phase 3: Grand heist for unknown operations.</p>
-                    </div>
-                </div>
-                <div class="timeline-item right">
-                    <div class="timeline-dot"></div>
-                    <div class="glass-panel timeline-content">
-                        <h4>Salary Expected</h4>
-                        <p>Phase 4: Legendary mythical event forecasted annually.</p>
-                    </div>
-                </div>
-                <div class="timeline-item left">
-                    <div class="timeline-dot"></div>
-                    <div class="glass-panel timeline-content">
-                        <h4>Payment Still Pending</h4>
-                        <p>Phase 5: The ongoing infinite loop state.</p>
-                    </div>
-                </div>
+          </div>
+          <div class="timeline-item right">
+            <div class="timeline-dot"></div>
+            <div class="glass-panel timeline-content">
+              <h4>Salary Expected</h4>
+              <p>Phase 4: Legendary mythical event forecasted annually.</p>
             </div>
-        </section>
+          </div>
+          <div class="timeline-item left">
+            <div class="timeline-dot"></div>
+            <div class="glass-panel timeline-content">
+              <h4>Payment Still Pending</h4>
+              <p>Phase 5: The ongoing infinite loop state.</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
 
     <!-- Notification Container -->
     <div class="popup-notification" id="funnyPopup">
-        <span style="font-size: 1.5rem;">⚠️</span>
-        <span id="popupMessage">Recovery team is waiting.</span>
+      <span style="font-size: 1.5rem">⚠️</span>
+      <span id="popupMessage">Recovery team is waiting.</span>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>Made with ❤️ by Friends Recovery Department</p>
-        <p style="opacity: 0.5; font-size: 0.8rem; margin-top: 4px;">All Rights Reserved Until Payment Received.</p>
+      <p>Made with ❤️ by Friends Recovery Department</p>
+      <p style="opacity: 0.5; font-size: 0.8rem; margin-top: 4px">All Rights Reserved Until Payment Received.</p>
     </footer>
 
     <!-- Core Interactive JavaScript -->
     <script>
-        // Generate Floating Background Emojis dynamically
-        const emojis = ['💸', '❤️', '😂', '👑', '💰'];
-        const decorContainer = document.getElementById('bgDecorations');
+      // Generate Floating Background Emojis dynamically
+      const emojis = ["💸", "❤️", "😂", "👑", "💰"];
+      const decorContainer = document.getElementById("bgDecorations");
 
-        for(let i=0; i < 30; i++) {
-            const span = document.createElement('span');
-            span.className = 'floating-emoji';
-            span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            span.style.left = Math.random() * 100 + 'vw';
-            span.style.top = Math.random() * 100 + 'vh';
-            span.style.animationDelay = (Math.random() * -20) + 's';
-            span.style.fontSize = (Math.random() * 1.5 + 1.5) + 'rem';
-            decorContainer.appendChild(span);
-        }
+      for (let i = 0; i < 30; i++) {
+        const span = document.createElement("span");
+        span.className = "floating-emoji";
+        span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        span.style.left = Math.random() * 100 + "vw";
+        span.style.top = Math.random() * 100 + "vh";
+        span.style.animationDelay = Math.random() * -20 + "s";
+        span.style.fontSize = Math.random() * 1.5 + 1.5 + "rem";
+        decorContainer.appendChild(span);
+      }
 
-        // Animate counter effect for total debt amount
-        function animateValue(obj, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                obj.innerHTML = '₹' + Math.floor(progress * (end - start) + start).toLocaleString('en-IN');
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
+      // Animate counter effect for total debt amount
+      function animateValue(obj, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+          if (!startTimestamp) startTimestamp = timestamp;
+          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+          obj.innerHTML = "₹" + Math.floor(progress * (end - start) + start).toLocaleString("en-IN");
+          if (progress < 1) {
             window.requestAnimationFrame(step);
-        }
+          }
+        };
+        window.requestAnimationFrame(step);
+      }
 
-        // Setup Intersection Observer for scroll animations
-        const sections = document.querySelectorAll('section');
-        const observerOptions = { threshold: 0.15 };
-        
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // If target is the udhar section, trigger counter animation once
-                    if(entry.target.id === 'udhar') {
-                        const debtEl = document.getElementById('totalDebtVal');
-                        if(debtEl.innerText === '₹0') {
-                            animateValue(debtEl, 0, 11000, 2000);
-                        }
-                    }
-                }
-            });
-        }, observerOptions);
+      // Setup Intersection Observer for scroll animations
+      const sections = document.querySelectorAll("section");
+      const observerOptions = { threshold: 0.15 };
 
-        sections.forEach(sec => sectionObserver.observe(sec));
-
-        // Interaction Logic for Salary button
-        const salaryBtn = document.getElementById('salaryBtn');
-        const funnyPopup = document.getElementById('funnyPopup');
-        const popupMessage = document.getElementById('popupMessage');
-
-        const phrases = [
-            "Recovery team is waiting.",
-            "Ajay is searching for salary.",
-            "Loan Approved... Payment Pending.",
-            "Wallet not found.",
-            "Salary loading...",
-            "Friends never forget money."
-        ];
-
-        function triggerConfetti() {
-            for(let i=0; i<50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti-piece';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.backgroundColor = ['#ff3366', '#00ffcc', '#9933ff', '#d4af37'][Math.floor(Math.random()*4)];
-                confetti.style.transform = 'scale(' + (Math.random() * 0.6 + 0.4) + ')';
-                confetti.style.animationDuration = (Math.random() * 2 + 1) + 's';
-                document.body.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 3000);
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            // If target is the udhar section, trigger counter animation once
+            if (entry.target.id === "udhar") {
+              const debtEl = document.getElementById("totalDebtVal");
+              if (debtEl.innerText === "₹0") {
+                animateValue(debtEl, 0, 11000, 2000);
+              }
             }
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach((sec) => sectionObserver.observe(sec));
+
+      // Interaction Logic for Salary button
+      const salaryBtn = document.getElementById("salaryBtn");
+      const funnyPopup = document.getElementById("funnyPopup");
+      const popupMessage = document.getElementById("popupMessage");
+
+      const phrases = ["Recovery team is waiting.", "Ajay is searching for salary.", "Loan Approved... Payment Pending.", "Wallet not found.", "Salary loading...", "Friends never forget money."];
+
+      function triggerConfetti() {
+        for (let i = 0; i < 50; i++) {
+          const confetti = document.createElement("div");
+          confetti.className = "confetti-piece";
+          confetti.style.left = Math.random() * 100 + "vw";
+          confetti.style.backgroundColor = ["#ff3366", "#00ffcc", "#9933ff", "#d4af37"][Math.floor(Math.random() * 4)];
+          confetti.style.transform = "scale(" + (Math.random() * 0.6 + 0.4) + ")";
+          confetti.style.animationDuration = Math.random() * 2 + 1 + "s";
+          document.body.appendChild(confetti);
+          setTimeout(() => confetti.remove(), 3000);
         }
+      }
 
-        salaryBtn.addEventListener('click', () => {
-            // Trigger Shake on container panel
-            const parentPanel = salaryBtn.closest('.udhar-dashboard');
-            parentPanel.classList.add('shake-element');
-            setTimeout(() => parentPanel.classList.remove('shake-element'), 500);
+      salaryBtn.addEventListener("click", () => {
+        // Trigger Shake on container panel
+        const parentPanel = salaryBtn.closest(".udhar-dashboard");
+        parentPanel.classList.add("shake-element");
+        setTimeout(() => parentPanel.classList.remove("shake-element"), 500);
 
-            // Confetti Blast
-            triggerConfetti();
+        // Confetti Blast
+        triggerConfetti();
 
-            // Display Toast Popup
-            const randomMsg = phrases[Math.floor(Math.random() * phrases.length)];
-            popupMessage.innerText = randomMsg;
-            funnyPopup.classList.add('show');
+        // Display Toast Popup
+        const randomMsg = phrases[Math.floor(Math.random() * phrases.length)];
+        popupMessage.innerText = randomMsg;
+        funnyPopup.classList.add("show");
 
-            setTimeout(() => {
-                funnyPopup.classList.remove('show');
-            }, 3500);
+        setTimeout(() => {
+          funnyPopup.classList.remove("show");
+        }, 3500);
+      });
+
+      // Mouse Move Parallax effect on cards
+      document.addEventListener("mousemove", (e) => {
+        const cards = document.querySelectorAll(".glass-panel, .royal-card");
+        const mouseX = e.clientX / window.innerWidth - 0.5;
+        const mouseY = e.clientY / window.innerHeight - 0.5;
+
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          // Only modify if visible or near viewport
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            card.style.transform = `translateY(${-4 + mouseY * 10}px) rotateX(${mouseY * 4}deg) rotateY(${mouseX * 4}deg)`;
+          }
         });
-
-        // Mouse Move Parallax effect on cards
-        document.addEventListener('mousemove', (e) => {
-            const cards = document.querySelectorAll('.glass-panel, .royal-card');
-            const mouseX = e.clientX / window.innerWidth - 0.5;
-            const mouseY = e.clientY / window.innerHeight - 0.5;
-
-            cards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                // Only modify if visible or near viewport
-                if(rect.top < window.innerHeight && rect.bottom > 0) {
-                    card.style.transform = `translateY(${-4 + mouseY * 10}px) rotateX(${mouseY * 4}deg) rotateY(${mouseX * 4}deg)`;
-                }
-            });
-        });
+      });
     </script>
-</body>
+  </body>
 </html>
-index.html
-Displaying index.html.
