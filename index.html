@@ -1,137 +1,145 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ajay Rawat</title>
+    <title>Ajay Dossier - Confidential Report</title>
     <style>
-      /* Typography & Variables */
-      @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap");
+        /* Typography & System Variables */
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
 
-      :root {
-        --bg-gradient: linear-gradient(-45deg, #0f0c20, #150f30, #0a0813, #1a0b2e);
-        --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 70%, #aa771c 100%);
-        --glass-bg: rgba(255, 255, 255, 0.03);
-        --glass-border: rgba(255, 255, 255, 0.07);
-        --glass-highlight: rgba(255, 255, 255, 0.15);
-        --text-primary: #ffffff;
-        --text-secondary: #b3b3cc;
-        --accent-pink: #ff3366;
-        --accent-green: #00ffcc;
-        --accent-purple: #9933ff;
-        --accent-gold: #d4af37;
-        --glow-shadow: 0 0 20px rgba(153, 51, 255, 0.2);
-        --card-radius: 24px;
-      }
+        :root {
+            --police-blue: #0a1128;
+            --police-dark: #020617;
+            --tactical-red: #ef4444;
+            --tactical-blue: #3b82f6;
+            --cyber-amber: #f59e0b;
+            --neon-green: #10b981;
+            --glass-bg: rgba(15, 23, 42, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-radius: 16px;
+        }
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        user-select: none;
-      }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
 
-      html {
-        scroll-behavior: smooth;
-        font-family: "Plus Jakarta Sans", sans-serif;
-        background: #09070f;
-        color: var(--text-primary);
-        overflow-x: hidden;
-      }
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--police-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
 
-      body {
-        min-height: 100vh;
-        background: var(--bg-gradient);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
-        position: relative;
-        padding-bottom: 60px;
-      }
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 70%);
+            position: relative;
+            padding-bottom: 60px;
+        }
 
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #09070f;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: var(--glass-highlight);
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--accent-purple);
-      }
+        /* Tactical Siren Alert Bar */
+        .siren-bar {
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--tactical-red), var(--tactical-blue), var(--tactical-red));
+            background-size: 200% 100%;
+            animation: sirenAlert 2s linear infinite;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10000;
+        }
 
-      /* Background Canvas and Floating Particles */
-      .background-decorations {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        pointer-events: none;
-        overflow: hidden;
-      }
+        /* Scanline Overlay Effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
 
-      .floating-emoji {
-        position: absolute;
-        font-size: 2rem;
-        opacity: 0.15;
-        animation: floatAround 25s linear infinite;
-      }
+        /* Background Particle Engine Canvas */
+        .background-decorations {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
 
-      /* Glassmorphism utility */
-      .glass-panel {
-        background: var(--glass-bg);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid var(--glass-border);
-        border-radius: var(--card-radius);
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-      }
+        .floating-emoji {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0.08;
+            animation: floatAround 22s linear infinite;
+        }
 
-      .glass-panel:hover {
-        border-color: var(--glass-highlight);
-        box-shadow: 0 12px 40px 0 rgba(153, 51, 255, 0.15);
-        transform: translateY(-4px);
-      }
+        /* Glassmorphism Premium Criminal Dashboard Modules */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
 
-      /* Core Layout Elements */
-      .container {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 24px;
-        position: relative;
-        z-index: 1;
-      }
+        .glass-panel:hover {
+            border-color: rgba(239, 68, 68, 0.3);
+            box-shadow: 0 24px 50px rgba(239, 68, 68, 0.1);
+            transform: translateY(-2px);
+        }
 
-      section {
-        padding: 80px 0 40px 0;
-        opacity: 0;
-        transform: translateY(40px);
-        transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-      }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
 
-      section.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
+        section {
+            padding: 60px 0 20px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
 
-      .section-title {
-        font-size: 2.5rem;
-        font-weight: 800;
-        text-align: center;
-        margin-bottom: 12px;
-        letter-spacing: -0.5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-      }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid var(--tactical-red);
+            padding-left: 12px;
+        }
 
       .section-subtitle {
         font-size: 1.1rem;
@@ -143,7 +151,7 @@
 
       /* Header Style */
       header {
-        min-height: 85vh;
+        min-height: 80vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -152,26 +160,6 @@
         position: relative;
         z-index: 1;
         padding-top: 40px;
-      }
-
-      /* User Avatar Profile Photo */
-      .profile-avatar-container {
-        width: 160px;
-        height: 160px;
-        border-radius: 50%;
-        padding: 6px;
-        background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink), var(--accent-gold));
-        margin-bottom: 24px;
-        box-shadow: 0 0 35px rgba(153, 51, 255, 0.4);
-        animation: pulseGlow 3s infinite alternate;
-      }
-
-      .profile-avatar {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 4px solid #09070f;
       }
 
       .dossier-tag {
@@ -184,12 +172,13 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 2px;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
         box-shadow: 0 0 15px rgba(255, 51, 102, 0.2);
+        animation: pulseGlow 2s infinite alternate;
       }
 
       .main-title {
-        font-size: 4.8rem;
+        font-size: 5rem;
         font-weight: 900;
         letter-spacing: -2px;
         margin-bottom: 16px;
@@ -210,7 +199,7 @@
 
       .scroll-indicator {
         position: absolute;
-        bottom: 20px;
+        bottom: 40px;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
@@ -224,257 +213,211 @@
         opacity: 0.7;
       }
 
-      .scroll-mouse {
-        width: 24px;
-        height: 40px;
-        border: 2px solid var(--text-secondary);
-        border-radius: 12px;
-        position: relative;
-      }
-
-      .scroll-wheel {
-        width: 4px;
-        height: 8px;
-        background: var(--accent-purple);
-        border-radius: 2px;
-        position: absolute;
-        top: 6px;
-        left: 50%;
-        transform: translateX(-50%);
-        animation: scrollWheel 1.5s infinite;
-      }
-
-      /* Section 1: Udhar Department */
-      .udhar-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 24px;
-        margin-bottom: 40px;
-      }
-
-      .money-card {
-        padding: 32px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .money-card::before {
-        content: "";
-        position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 150px;
-        height: 150px;
-        background: radial-gradient(circle, rgba(0, 255, 204, 0.1) 0%, transparent 70%);
-        pointer-events: none;
-      }
-
-      .money-card .creditor-name {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .money-card .label {
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        color: var(--text-secondary);
-        letter-spacing: 1px;
-      }
-
-      .money-card .amount {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: var(--accent-green);
-        margin-top: 8px;
-        font-family: monospace;
-        text-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
-      }
-
-      .udhar-dashboard {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-        align-items: center;
-        padding: 40px;
-      }
-
-      @media (max-width: 768px) {
-        .udhar-dashboard {
-          grid-template-columns: 1fr;
-          padding: 24px;
+        .crime-card {
+            padding: 24px;
+            border-top: 3px solid var(--tactical-red);
+            position: relative;
         }
-      }
 
-      .total-counter-container {
-        text-align: center;
-      }
+        .crime-card .charge-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--tactical-red);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
 
-      .total-counter-container h3 {
-        font-size: 1.1rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: var(--text-secondary);
-        margin-bottom: 8px;
-      }
+        .crime-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
 
-      .total-amount {
-        font-size: 4rem;
-        font-weight: 900;
-        color: #ffffff;
-        text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-        font-family: monospace;
-      }
+        .crime-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
 
-      .status-pane {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-        text-align: center;
-      }
+        /* Section 1: Udhar Department Ledger */
+        .udhar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
 
-      .status-badge-animated {
-        background: rgba(212, 175, 55, 0.1);
-        border: 1px solid var(--accent-gold);
-        color: var(--accent-gold);
-        padding: 10px 24px;
-        border-radius: 100px;
-        font-weight: 700;
-        font-size: 0.95rem;
-        letter-spacing: 1px;
-        animation: statusPulse 1.5s infinite alternate;
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
-      }
+        .money-card {
+            padding: 28px;
+            position: relative;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.6) 100%);
+        }
 
-      .status-quote {
-        font-family: "Playfair Display", serif;
-        font-style: italic;
-        font-size: 1.3rem;
-        color: var(--text-secondary);
-      }
+        .money-card .victim-profile {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-      .action-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        background: linear-gradient(135deg, var(--accent-purple) 0%, #6600cc 100%);
-        border: none;
-        color: white;
-        padding: 16px 36px;
-        font-size: 1.1rem;
-        font-weight: 700;
-        border-radius: 100px;
-        cursor: pointer;
-        box-shadow: 0 8px 25px rgba(153, 51, 255, 0.4);
-        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-        margin-top: 24px;
-        position: relative;
-        overflow: hidden;
-      }
+        .money-card .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-      .action-btn:hover {
-        transform: scale(1.03) translateY(-2px);
-        box-shadow: 0 12px 30px rgba(153, 51, 255, 0.6);
-      }
+        .money-card .amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--tactical-red);
+            margin-top: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+        }
 
-      .action-btn:active {
-        transform: scale(0.98) translateY(0);
-      }
+        .udhar-dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: center;
+            padding: 36px;
+            border-left: 4px solid var(--cyber-amber);
+        }
 
-      /* Shake animation applied globally to active actions */
-      .shake-element {
-        animation: fastShake 0.4s ease-in-out;
-      }
+        @media (max-width: 768px) {
+            .udhar-dashboard {
+                grid-template-columns: 1fr;
+                padding: 24px;
+            }
+        }
 
-      /* Section 2: Relationship Portfolio */
-      .relationship-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 24px;
-      }
+        .total-counter-container h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-      .relationship-card {
-        padding: 32px 24px;
-        text-align: center;
-        position: relative;
-      }
+        .total-amount {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-      .card-photo-wrapper {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto 16px auto;
-        border-radius: 50%;
-        padding: 3px;
-        background: var(--glass-highlight);
-        overflow: hidden;
-      }
+        .status-pane {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
 
-      .card-photo {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-        transition: transform 0.4s ease;
-      }
+        .status-badge-animated {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--cyber-amber);
+            color: var(--cyber-amber);
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 1px;
+            animation: statusPulse 1.2s infinite alternate;
+        }
 
-      .relationship-card:hover .card-photo {
-        transform: scale(1.15) rotate(5deg);
-      }
+        .status-quote {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
 
-      .relationship-card h3 {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 12px;
-      }
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--tactical-red);
+            border: none;
+            color: white;
+            padding: 14px 32px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
 
-      .portfolio-badge {
+        .action-btn:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(239, 68, 68, 0.6);
+        }
+
+        /* Section 2: Relationship Syndicate Portfolio */
+        .relationship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .relationship-card {
+            padding: 24px;
+            text-align: center;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+        }
+
+      .relationship-card .avatar-emoji {
+        font-size: 3.5rem;
+        margin-bottom: 16px;
         display: inline-block;
-        padding: 6px 14px;
-        border-radius: 100px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        transition: transform 0.3s ease;
       }
 
-      .badge-ex {
-        background: rgba(255, 51, 102, 0.1);
-        border: 1px solid var(--accent-pink);
-        color: var(--accent-pink);
-      }
-      .badge-vip {
-        background: rgba(0, 255, 204, 0.1);
-        border: 1px solid var(--accent-green);
-        color: var(--accent-green);
-      }
-      .badge-special {
-        background: rgba(153, 51, 255, 0.1);
-        border: 1px solid var(--accent-purple);
-        color: var(--accent-purple);
-      }
-      .badge-premium {
-        background: rgba(212, 175, 55, 0.1);
-        border: 1px solid var(--accent-gold);
-        color: var(--accent-gold);
+      .relationship-card:hover .avatar-emoji {
+        transform: scale(1.2) rotate(10deg);
       }
 
-      /* Section 3: Official Wife */
-      .wife-section {
-        display: flex;
-        justify-content: center;
-        margin-top: 40px;
-      }
+        .relationship-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .portfolio-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+        }
+
+        .badge-ex { background: rgba(239, 68, 68, 0.15); border: 1px solid var(--tactical-red); color: var(--tactical-red); }
+        .badge-vip { background: rgba(59, 130, 246, 0.15); border: 1px solid var(--tactical-blue); color: var(--tactical-blue); }
+        .badge-special { background: rgba(168, 85, 247, 0.15); border: 1px solid #a855f7; color: #a855f7; }
+        .badge-premium { background: rgba(245, 158, 11, 0.15); border: 1px solid var(--cyber-amber); color: var(--cyber-amber); }
+
+        /* Section 3: Head of Operations / Official Wife */
+        .wife-section {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
 
       .royal-card {
         width: 100%;
-        max-width: 650px;
+        max-width: 600px;
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(212, 175, 55, 0.05) 100%);
         border: 2px solid rgba(212, 175, 55, 0.3);
         border-radius: calc(var(--card-radius) * 1.5);
@@ -497,288 +440,191 @@
         animation: shine 4s infinite;
       }
 
-      .royal-photo-container {
-        width: 140px;
-        height: 140px;
-        margin: 0 auto 20px auto;
-        border-radius: 50%;
-        padding: 4px;
-        background: var(--gold-gradient);
-        box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
-      }
-
-      .royal-photo {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-
       .crown-container {
-        font-size: 2.5rem;
-        margin-top: -10px;
-        margin-bottom: 8px;
+        font-size: 4.5rem;
+        margin-bottom: 16px;
         filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.5));
         animation: bounceSlow 2s infinite alternate;
       }
 
-      .royal-card h3 {
-        font-size: 1.2rem;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        color: var(--accent-gold);
-        margin-bottom: 8px;
-        font-weight: 700;
-      }
+        .royal-card h3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyber-amber);
+            margin-bottom: 6px;
+        }
 
-      .royal-name {
-        font-size: 3rem;
-        font-weight: 800;
-        margin-bottom: 16px;
-        background: var(--gold-gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
-      }
+        .royal-name {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
 
-      .royal-desc {
-        font-size: 1.1rem;
-        color: var(--text-secondary);
-        font-weight: 500;
-        letter-spacing: 0.5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-      }
+        .royal-desc {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--neon-green);
+            font-weight: 700;
+        }
 
-      /* Section 4: Stats Grid */
-      .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-      }
+        /* Section 4: Forensic Stats Matrix */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
 
-      .stat-card {
-        padding: 28px;
-        text-align: center;
-      }
+        .stat-card {
+            padding: 24px;
+            text-align: center;
+            border-left: 2px solid var(--text-muted);
+        }
 
-      .stat-card .stat-val {
-        font-size: 2.8rem;
-        font-weight: 800;
-        margin-bottom: 6px;
-        background: linear-gradient(to bottom, #fff, #bbb);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
+        .stat-card .stat-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
 
-      .stat-card:nth-child(1) .stat-val {
-        background: linear-gradient(to bottom, #ff758c, #ff7eb3);
-        -webkit-background-clip: text;
-      }
-      .stat-card:nth-child(2) .stat-val {
-        background: var(--gold-gradient);
-        -webkit-background-clip: text;
-      }
-      .stat-card:nth-child(3) .stat-val {
-        background: linear-gradient(to bottom, #00ffcc, #00b4db);
-        -webkit-background-clip: text;
-      }
-      .stat-card:nth-child(4) .stat-val {
-        background: linear-gradient(to bottom, #ff9966, #ff5e62);
-        -webkit-background-clip: text;
-      }
-      .stat-card:nth-child(5) .stat-val {
-        background: linear-gradient(to bottom, #b388ff, #801515);
-        -webkit-background-clip: text;
-        color: #ff3333;
-        -webkit-text-fill-color: initial;
-        text-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
-      }
+        .stat-card:nth-child(1) .stat-val { color: var(--tactical-blue); }
+        .stat-card:nth-child(2) .stat-val { color: var(--cyber-amber); }
+        .stat-card:nth-child(3) .stat-val { color: var(--tactical-red); }
+        .stat-card:nth-child(4) .stat-val { color: var(--neon-green); }
+        .stat-card:nth-child(5) .stat-val { color: #ec4899; }
 
-      .stat-card .stat-lbl {
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
+        .stat-card .stat-lbl {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-      /* Section 5: Achievements */
-      .badge-flex {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: center;
-      }
+        /* Section 5: Achievements Badges */
+        .badge-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+        }
 
-      .achievement-badge {
-        padding: 20px 32px;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        border-radius: 100px;
-      }
+        .achievement-badge {
+            padding: 16px 28px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-radius: 4px;
+            border-inline-start: 3px solid var(--cyber-amber);
+        }
 
-      .achievement-badge .icon {
-        font-size: 2rem;
-      }
+        .achievement-badge .icon { font-size: 1.8rem; }
+        .achievement-badge .info h4 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; font-family: 'JetBrains Mono', monospace;}
+        .achievement-badge .info p { font-size: 0.8rem; color: var(--text-muted); }
 
-      .achievement-badge .info h4 {
-        font-size: 1.1rem;
-        font-weight: 700;
-        margin-bottom: 2px;
-      }
+        /* Section 6: Operations Timeline */
+        .timeline-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            padding: 30px 0;
+        }
 
-      .achievement-badge .info p {
-        font-size: 0.8rem;
-        color: var(--text-secondary);
-      }
-
-      /* Section 6: Timeline */
-      .timeline-container {
-        max-width: 800px;
-        margin: 0 auto;
-        position: relative;
-        padding: 40px 0;
-      }
-
-      .timeline-container::before {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: linear-gradient(to bottom, var(--glass-border), var(--accent-purple), var(--accent-pink), transparent);
-        transform: translateX(-50%);
-      }
-
-      .timeline-item {
-        width: 50%;
-        padding: 20px 40px;
-        position: relative;
-        box-sizing: border-box;
-      }
-
-      .timeline-item.left {
-        left: 0;
-        text-align: right;
-      }
-
-      .timeline-item.right {
-        left: 50%;
-        text-align: left;
-      }
-
-      .timeline-dot {
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background: var(--text-primary);
-        position: absolute;
-        top: 30px;
-        z-index: 2;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-      }
-
-      .timeline-item.left .timeline-dot {
-        right: -8px;
-      }
-
-      .timeline-item.right .timeline-dot {
-        left: -8px;
-      }
-
-      .timeline-content {
-        padding: 24px;
-      }
-
-      .timeline-content h4 {
-        font-size: 1.2rem;
-        font-weight: 700;
-        margin-bottom: 6px;
-      }
-
-      .timeline-content p {
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-      }
-
-      @media (max-width: 768px) {
         .timeline-container::before {
-          left: 20px;
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--glass-border);
+            transform: translateX(-50%);
         }
+
         .timeline-item {
-          width: 100%;
-          left: 0 !important;
-          padding-left: 50px;
-          padding-right: 0;
-          text-align: left !important;
+            width: 50%;
+            padding: 15px 30px;
+            position: relative;
         }
+
+        .timeline-item.left { left: 0; text-align: right; }
+        .timeline-item.right { left: 50%; text-align: left; }
+
         .timeline-dot {
-          left: 12px !important;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--tactical-red);
+            position: absolute;
+            top: 24px;
+            z-index: 2;
+            box-shadow: 0 0 10px var(--tactical-red);
         }
-      }
 
-      /* Custom Toast Popup Layout */
-      .popup-notification {
-        position: fixed;
-        bottom: 40px;
-        right: 40px;
-        background: rgba(15, 10, 30, 0.9);
-        border: 1px solid var(--accent-purple);
-        box-shadow: 0 10px 40px rgba(153, 51, 255, 0.3);
-        border-radius: 16px;
-        padding: 20px 30px;
-        color: white;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-weight: 600;
-        transform: translateY(100px) scale(0.8);
-        opacity: 0;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        backdrop-filter: blur(10px);
-      }
+        .timeline-item.left .timeline-dot { right: -6px; }
+        .timeline-item.right .timeline-dot { left: -6px; }
 
-      .popup-notification.show {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
+        .timeline-content { padding: 20px; }
+        .timeline-content h4 { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
+        .timeline-content p { font-size: 0.85rem; color: var(--text-muted); }
 
-      /* Footer */
-      footer {
-        text-align: center;
-        padding: 60px 24px 20px 24px;
-        color: var(--text-secondary);
-        font-size: 0.9rem;
-        position: relative;
-        z-index: 1;
-        line-height: 1.6;
-      }
-
-      /* Animations Keyframes */
-      @keyframes gradientBG {
-        0% {
-          background-position: 0% 50%;
+        @media (max-width: 768px) {
+            .timeline-container::before { left: 20px; }
+            .timeline-item { width: 100%; left: 0 !important; padding-left: 40px; padding-right: 0; text-align: left !important; }
+            .timeline-dot { left: 14px !important; }
         }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
 
-      @keyframes floatAround {
-        0% {
-          transform: translateY(105vh) translateX(0) rotate(0deg);
+        /* Federal Warning Popup Notifications */
+        .popup-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #0f172a;
+            border-left: 4px solid var(--tactical-red);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            border-radius: 4px;
+            padding: 16px 24px;
+            color: white;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        100% {
-          transform: translateY(-10vh) translateX(100px) rotate(360deg);
+
+        .popup-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 24px 20px 24px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 60px;
+        }
+
+        /* System Keyframes Animations */
+        @keyframes sirenAlert {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        @keyframes floatAround {
+            0% { transform: translateY(105vh) translateX(0) rotate(0deg); }
+            100% { transform: translateY(-10vh) translateX(50px) rotate(360deg); }
         }
       }
 
@@ -787,104 +633,58 @@
           box-shadow: 0 0 10px rgba(255, 51, 102, 0.2);
         }
         100% {
-          box-shadow: 0 0 30px rgba(153, 51, 255, 0.6);
+          box-shadow: 0 0 25px rgba(255, 51, 102, 0.5);
           border-color: rgba(255, 51, 102, 0.6);
         }
       }
 
-      @keyframes statusPulse {
-        0% {
-          transform: scale(1);
-          opacity: 0.9;
+        @keyframes statusPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.02); }
         }
-        100% {
-          transform: scale(1.04);
-          opacity: 1;
-          box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
-        }
-      }
 
-      @keyframes scrollWheel {
-        0% {
-          top: 6px;
-          opacity: 1;
+        @keyframes typewrite {
+            0%, 100% { width: 0; }
+            50%, 80% { width: 100%; }
         }
-        50% {
-          top: 18px;
-          opacity: 0;
-        }
-        100% {
-          top: 6px;
-          opacity: 1;
-        }
-      }
 
-      @keyframes bounceSlow {
-        0% {
-          transform: translateY(0);
+        .shake-element {
+            animation: tacticalShake 0.4s ease-in-out;
         }
-        100% {
-          transform: translateY(-8px);
-        }
-      }
 
-      @keyframes shine {
-        0% {
-          left: -100%;
+        @keyframes tacticalShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
         }
-        50% {
-          left: 150%;
-        }
-        100% {
-          left: 150%;
-        }
-      }
 
-      @keyframes fastShake {
-        0%,
-        100% {
-          transform: translateX(0);
+        .confetti-piece {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            z-index: 9999;
+            top: -10px;
+            animation: fall linear forwards;
         }
-        20%,
-        60% {
-          transform: translateX(-6px);
-        }
-        40%,
-        80% {
-          transform: translateX(6px);
-        }
-      }
 
-      .confetti-piece {
-        position: fixed;
-        width: 10px;
-        height: 10px;
-        z-index: 999;
-        top: -10px;
-        border-radius: 2px;
-        animation: fall linear forwards;
-      }
-
-      @keyframes fall {
-        to {
-          transform: translateY(105vh) rotate(360deg);
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
         }
-      }
     </style>
-  </head>
-  <body>
-    <!-- Background Elements -->
+</head>
+<body>
+
+    <!-- Upper Siren Bar Grid -->
+    <div class="siren-bar"></div>
+
+    <!-- Surveillance Matrix Particle Canvas -->
     <div class="background-decorations" id="bgDecorations"></div>
 
     <div class="container">
       <!-- Header -->
       <header>
-        <!-- Dummy Profile Image for Ajay Rawat -->
-        <div class="profile-avatar-container">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=60" alt="Ajay Rawat Avatar" class="profile-avatar" />
-        </div>
         <div class="dossier-tag">Confidential Report</div>
-        <h1 class="main-title">😂 AJAY RAWAT 😂</h1>
+        <h1 class="main-title">😂 AJAY DOSSIER 😂</h1>
         <p class="main-subtitle">"Generated by the Friends Recovery Department. Absolutely no intelligence found within."</p>
         <div class="scroll-indicator">
           <span>Investigate</span>
@@ -917,52 +717,44 @@
           </div>
         </div>
 
-        <div class="glass-panel udhar-dashboard">
-          <div class="total-counter-container">
-            <h3>Total Accumulated Debt</h3>
-            <div class="total-amount" id="totalDebtVal">₹0</div>
-          </div>
-          <div class="status-pane">
-            <div class="status-badge-animated">CURRENT STATUS: HOPELESS PENDING</div>
-            <p class="status-quote">"AUR YE MILENGE SALARY PR."</p>
-            <button class="action-btn" id="salaryBtn">
-              <span>😂 Salary Kab Aayegi?</span>
-            </button>
-          </div>
-        </div>
-      </section>
+            <div class="glass-panel udhar-dashboard">
+                <div class="total-counter-container">
+                    <h3>Accumulated Sovereign Liability</h3>
+                    <div class="total-amount" id="totalDebtVal">₹0</div>
+                </div>
+                <div class="status-pane">
+                    <div class="status-badge-animated">CRITICAL SETTLEMENT STATUS</div>
+                    <p class="status-quote">"AUR YE MILENGE SALARY PR."</p>
+                    <button class="action-btn" id="salaryBtn">
+                        <span>😂 Salary Kab Aayegi?</span>
+                    </button>
+                </div>
+            </div>
+        </section>
 
-      <!-- Section 2: Relationship Portfolio -->
-      <section id="relationship">
-        <h2 class="section-title">❤️ Relationship Portfolio</h2>
-        <p class="section-subtitle">Purely for Educational & Auditing Purposes 😂</p>
+        <!-- Section 2: Relationship Portfolio Syndicate -->
+        <section id="relationship">
+            <h2 class="section-title">❤️ Relationship Portfolio Syndicate</h2>
+            <p class="section-subtitle">Purely for Educational Purposes 😂</p>
 
         <div class="relationship-grid">
           <div class="glass-panel relationship-card">
-            <div class="card-photo-wrapper">
-              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop&q=60" alt="Minakshi" class="card-photo" />
-            </div>
+            <span class="avatar-emoji">🌹</span>
             <h3>Minakshi</h3>
             <span class="portfolio-badge badge-ex">Ex Candidate</span>
           </div>
           <div class="glass-panel relationship-card">
-            <div class="card-photo-wrapper">
-              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60" alt="Puja" class="card-photo" />
-            </div>
+            <span class="avatar-emoji">🌸</span>
             <h3>Puja</h3>
             <span class="portfolio-badge badge-vip">VIP Friend</span>
           </div>
           <div class="glass-panel relationship-card">
-            <div class="card-photo-wrapper">
-              <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop&q=60" alt="Riya" class="card-photo" />
-            </div>
+            <span class="avatar-emoji">✨</span>
             <h3>Riya</h3>
             <span class="portfolio-badge badge-special">Special Entry</span>
           </div>
           <div class="glass-panel relationship-card">
-            <div class="card-photo-wrapper">
-              <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&auto=format&fit=crop&q=60" alt="Kajal" class="card-photo" />
-            </div>
+            <span class="avatar-emoji">💖</span>
             <h3>Kajal</h3>
             <span class="portfolio-badge badge-premium">Premium Member</span>
           </div>
@@ -972,9 +764,6 @@
       <!-- Section 3: Official Wife -->
       <section id="official-wife" class="wife-section">
         <div class="royal-card">
-          <div class="royal-photo-container">
-            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&auto=format&fit=crop&q=60" alt="Vanshika" class="royal-photo" />
-          </div>
           <div class="crown-container">👑</div>
           <h3>Official Wife</h3>
           <div class="royal-name">Vanshika ❤️</div>
@@ -982,241 +771,229 @@
         </div>
       </section>
 
-      <!-- Section 4: Ajay Stats -->
-      <section id="stats">
-        <h2 class="section-title">📊 Ajay Metrics & Analytics</h2>
-        <p class="section-subtitle">Highly inaccurate but realistic algorithmic statistics</p>
+        <!-- Section 4: Forensic Statistics Matrix -->
+        <section id="stats">
+            <h2 class="section-title">📊 Forensic Threat Matrix Analytics</h2>
+            <p class="section-subtitle">Realtime metrics captured via public tracking systems</p>
+            
+            <div class="stats-grid">
+                <div class="glass-panel stat-card">
+                    <div class="stat-val">4</div>
+                    <div class="stat-lbl">Girlfriends</div>
+                </div>
+                <div class="glass-panel stat-card">
+                    <div class="stat-val">1</div>
+                    <div class="stat-lbl">Official Wife</div>
+                </div>
+                <div class="glass-panel stat-card">
+                    <div class="stat-val" style="font-size: 2rem;">11,000</div>
+                    <div class="stat-lbl">Total Debt</div>
+                </div>
+                <div class="glass-panel stat-card">
+                    <div class="stat-val" style="font-size: 1.4rem; font-weight:700; padding: 10px 0;">PENDING</div>
+                    <div class="stat-lbl">Salary Status</div>
+                </div>
+                <div class="glass-panel stat-card">
+                    <div class="stat-val">999+</div>
+                    <div class="stat-lbl">Recovery Calls</div>
+                </div>
+            </div>
+        </section>
 
-        <div class="stats-grid">
-          <div class="glass-panel stat-card">
-            <div class="stat-val">4</div>
-            <div class="stat-lbl">Girlfriends</div>
-          </div>
-          <div class="glass-panel stat-card">
-            <div class="stat-val">1</div>
-            <div class="stat-lbl">Official Wife</div>
-          </div>
-          <div class="glass-panel stat-card">
-            <div class="stat-val" style="font-size: 2.2rem; line-height: 2.8rem">₹11K</div>
-            <div class="stat-lbl">Total Debt</div>
-          </div>
-          <div class="glass-panel stat-card">
-            <div class="stat-val" style="font-size: 1.8rem; line-height: 2.8rem; font-weight: 700">Soon™</div>
-            <div class="stat-lbl">Salary Status</div>
-          </div>
-          <div class="glass-panel stat-card">
-            <div class="stat-val">999+</div>
-            <div class="stat-lbl">Recovery Calls</div>
-          </div>
-        </div>
-      </section>
+        <!-- Section 5: Verified Criminal Milestones -->
+        <section id="achievements">
+            <h2 class="section-title">🏆 Certified Operations Milestones</h2>
+            <p class="section-subtitle">Decorated tactical records compiled by intelligence branches</p>
+            
+            <div class="badge-flex">
+                <div class="glass-panel achievement-badge">
+                    <span class="icon">🏆</span>
+                    <div class="info">
+                        <h4>Master of Borrowing</h4>
+                        <p>Securing high volume capital flows without equity.</p>
+                    </div>
+                </div>
+                <div class="glass-panel achievement-badge">
+                    <span class="icon">🥇</span>
+                    <div class="info">
+                        <h4>Salary Delay Champion</h4>
+                        <p>Neutralizing tracking questions via bank server arguments.</p>
+                    </div>
+                </div>
+                <div class="glass-panel achievement-badge">
+                    <span class="icon">🎯</span>
+                    <div class="info">
+                        <h4>Escape Artist</h4>
+                        <p>Vanishing inside restaurant facilities during check deliveries.</p>
+                    </div>
+                </div>
+                <div class="glass-panel achievement-badge">
+                    <span class="icon">😂</span>
+                    <div class="info">
+                        <h4>Professional Promise Maker</h4>
+                        <p>"Bhai kal pakka de dunga."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <!-- Section 5: Achievements -->
-      <section id="achievements">
-        <h2 class="section-title">🏆 Verified Achievements</h2>
-        <p class="section-subtitle">Milestones achieved over years of professional dodging</p>
+        <!-- Section 6: Operational Crime History Timeline -->
+        <section id="timeline">
+            <h2 class="section-title">⏳ History Timeline Log</h2>
+            <p class="section-subtitle">Evolution tracking of tactical economic movements</p>
 
-        <div class="badge-flex">
-          <div class="glass-panel achievement-badge">
-            <span class="icon">🏆</span>
-            <div class="info">
-              <h4>Master of Borrowing</h4>
-              <p>Flawless execution without collateral.</p>
+            <div class="timeline-container">
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-panel timeline-content">
+                        <h4>Borrowed ₹750</h4>
+                        <p>Initiation sequence: Establishing baseline operational leverage.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-panel timeline-content">
+                        <h4>Borrowed ₹250</h4>
+                        <p>Micro injection: Secondary capital deployment for quick consumer items.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-panel timeline-content">
+                        <h4>Borrowed ₹10,000</h4>
+                        <p>Grand Enterprise: Massive structural asset absorption sequence executed.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-panel timeline-content">
+                        <h4>Salary Expected</h4>
+                        <p>Algorithmic Prediction: Theoretical settlement projections mapped dynamically.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-panel timeline-content">
+                        <h4>Payment Still Pending</h4>
+                        <p>Infinite Loop State: Infinite wait pattern activated across all nodes.</p>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="glass-panel achievement-badge">
-            <span class="icon">🥇</span>
-            <div class="info">
-              <h4>Salary Delay Champion</h4>
-              <p>Blaming the banking servers since Day 1.</p>
-            </div>
-          </div>
-          <div class="glass-panel achievement-badge">
-            <span class="icon">🎯</span>
-            <div class="info">
-              <h4>Escape Artist</h4>
-              <p>Disappears instantly when bill arrives.</p>
-            </div>
-          </div>
-          <div class="glass-panel achievement-badge">
-            <span class="icon">😂</span>
-            <div class="info">
-              <h4>Professional Promise Maker</h4>
-              <p>"Bhai kal pakka de dunga."</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 6: Timeline -->
-      <section id="timeline">
-        <h2 class="section-title">⏳ History Timeline</h2>
-        <p class="section-subtitle">The progression of economic crisis</p>
-
-        <div class="timeline-container">
-          <div class="timeline-item left">
-            <div class="timeline-dot"></div>
-            <div class="glass-panel timeline-content">
-              <h4>Borrowed ₹750</h4>
-              <p>Phase 1: Minor emergency requirements.</p>
-            </div>
-          </div>
-          <div class="timeline-item right">
-            <div class="timeline-dot"></div>
-            <div class="glass-panel timeline-content">
-              <h4>Borrowed ₹250</h4>
-              <p>Phase 2: Chai/Sutta emergency cash injections.</p>
-            </div>
-          </div>
-          <div class="timeline-item left">
-            <div class="timeline-dot"></div>
-            <div class="glass-panel timeline-content">
-              <h4>Borrowed ₹10,000</h4>
-              <p>Phase 3: Grand heist for unknown operations.</p>
-            </div>
-          </div>
-          <div class="timeline-item right">
-            <div class="timeline-dot"></div>
-            <div class="glass-panel timeline-content">
-              <h4>Salary Expected</h4>
-              <p>Phase 4: Legendary mythical event forecasted annually.</p>
-            </div>
-          </div>
-          <div class="timeline-item left">
-            <div class="timeline-dot"></div>
-            <div class="glass-panel timeline-content">
-              <h4>Payment Still Pending</h4>
-              <p>Phase 5: The ongoing infinite loop state.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
     </div>
 
-    <!-- Notification Container -->
+    <!-- System Threat Toast Notifications -->
     <div class="popup-notification" id="funnyPopup">
-      <span style="font-size: 1.5rem">⚠️</span>
-      <span id="popupMessage">Recovery team is waiting.</span>
+        <span style="font-size: 1.2rem;">⚠️ CODE RED:</span>
+        <span id="popupMessage">Recovery team is waiting.</span>
     </div>
 
-    <!-- Footer -->
+    <!-- Federal Bottom Footer -->
     <footer>
-      <p>Made with ❤️ for Ajay Rawat by Friends Recovery Department</p>
+      <p>Made with ❤️ by Friends Recovery Department</p>
       <p style="opacity: 0.5; font-size: 0.8rem; margin-top: 4px">All Rights Reserved Until Payment Received.</p>
     </footer>
 
-    <!-- Core Interactive JavaScript -->
+    <!-- Interactive Execution Script -->
     <script>
-      // Generate Floating Background Emojis dynamically
-      const emojis = ["💸", "❤️", "😂", "👑", "💰"];
-      const decorContainer = document.getElementById("bgDecorations");
+        // System Decorative Particle Grid Engine
+        const emojis = ['💸', '❤️', '😂', '👑', '💰'];
+        const decorContainer = document.getElementById('bgDecorations');
 
-      for (let i = 0; i < 30; i++) {
-        const span = document.createElement("span");
-        span.className = "floating-emoji";
-        span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        span.style.left = Math.random() * 100 + "vw";
-        span.style.top = Math.random() * 100 + "vh";
-        span.style.animationDelay = Math.random() * -20 + "s";
-        span.style.fontSize = Math.random() * 1.5 + 1.5 + "rem";
-        decorContainer.appendChild(span);
-      }
-
-      // Animate counter effect for total debt amount
-      function animateValue(obj, start, end, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-          if (!startTimestamp) startTimestamp = timestamp;
-          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-          obj.innerHTML = "₹" + Math.floor(progress * (end - start) + start).toLocaleString("en-IN");
-          if (progress < 1) {
-            window.requestAnimationFrame(step);
-          }
-        };
-        window.requestAnimationFrame(step);
-      }
-
-      // Setup Intersection Observer for scroll animations
-      const sections = document.querySelectorAll("section");
-      const observerOptions = { threshold: 0.15 };
-
-      const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            // If target is the udhar section, trigger counter animation once
-            if (entry.target.id === "udhar") {
-              const debtEl = document.getElementById("totalDebtVal");
-              if (debtEl.innerText === "₹0") {
-                animateValue(debtEl, 0, 11000, 2000);
-              }
-            }
-          }
-        });
-      }, observerOptions);
-
-      sections.forEach((sec) => sectionObserver.observe(sec));
-
-      // Interaction Logic for Salary button
-      const salaryBtn = document.getElementById("salaryBtn");
-      const funnyPopup = document.getElementById("funnyPopup");
-      const popupMessage = document.getElementById("popupMessage");
-
-      const phrases = [
-        "Recovery team is waiting.",
-        "Ajay Rawat is searching for salary.",
-        "Loan Approved... Payment Pending.",
-        "Wallet not found.",
-        "Salary loading...",
-        "Friends never forget money.",
-      ];
-
-      function triggerConfetti() {
-        for (let i = 0; i < 50; i++) {
-          const confetti = document.createElement("div");
-          confetti.className = "confetti-piece";
-          confetti.style.left = Math.random() * 100 + "vw";
-          confetti.style.backgroundColor = ["#ff3366", "#00ffcc", "#9933ff", "#d4af37"][Math.floor(Math.random() * 4)];
-          confetti.style.transform = "scale(" + (Math.random() * 0.6 + 0.4) + ")";
-          confetti.style.animationDuration = Math.random() * 2 + 1 + "s";
-          document.body.appendChild(confetti);
-          setTimeout(() => confetti.remove(), 3000);
+        for(let i=0; i < 25; i++) {
+            const span = document.createElement('span');
+            span.className = 'floating-emoji';
+            span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.top = Math.random() * 100 + 'vh';
+            span.style.animationDelay = (Math.random() * -20) + 's';
+            span.style.fontSize = (Math.random() * 1.2 + 1.2) + 'rem';
+            decorContainer.appendChild(span);
         }
-      }
 
-      salaryBtn.addEventListener("click", () => {
-        // Trigger Shake on container panel
-        const parentPanel = salaryBtn.closest(".udhar-dashboard");
-        parentPanel.classList.add("shake-element");
-        setTimeout(() => parentPanel.classList.remove("shake-element"), 500);
+        // Numerical Incrementation Component
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = '₹' + Math.floor(progress * (end - start) + start).toLocaleString('en-IN');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
 
-        // Confetti Blast
-        triggerConfetti();
+        // Screen Element Monitoring Engine
+        const sections = document.querySelectorAll('section');
+        const observerOptions = { threshold: 0.1 };
+        
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if(entry.target.id === 'udhar') {
+                        const debtEl = document.getElementById('totalDebtVal');
+                        if(debtEl.innerText === '₹0') {
+                            animateValue(debtEl, 0, 11000, 1500);
+                        }
+                    }
+                }
+            });
+        }, observerOptions);
 
-        // Display Toast Popup
-        const randomMsg = phrases[Math.floor(Math.random() * phrases.length)];
-        popupMessage.innerText = randomMsg;
-        funnyPopup.classList.add("show");
+        sections.forEach(sec => sectionObserver.observe(sec));
 
-        setTimeout(() => {
-          funnyPopup.classList.remove("show");
-        }, 3500);
-      });
+        // Interactivity Dispatch Logic
+        const salaryBtn = document.getElementById('salaryBtn');
+        const funnyPopup = document.getElementById('funnyPopup');
+        const popupMessage = document.getElementById('popupMessage');
 
-      // Mouse Move Parallax effect on cards
-      document.addEventListener("mousemove", (e) => {
-        const cards = document.querySelectorAll(".glass-panel, .royal-card");
-        const mouseX = e.clientX / window.innerWidth - 0.5;
-        const mouseY = e.clientY / window.innerHeight - 0.5;
+      const phrases = ["Recovery team is waiting.", "Ajay is searching for salary.", "Loan Approved... Payment Pending.", "Wallet not found.", "Salary loading...", "Friends never forget money."];
 
-        cards.forEach((card) => {
-          const rect = card.getBoundingClientRect();
-          // Only modify if visible or near viewport
-          if (rect.top < window.innerHeight && rect.bottom > 0) {
-            card.style.transform = `translateY(${-4 + mouseY * 10}px) rotateX(${mouseY * 4}deg) rotateY(${mouseX * 4}deg)`;
-          }
+        function triggerConfetti() {
+            for(let i=0; i<40; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = ['#ef4444', '#3b82f6', '#f59e0b', '#10b981'][Math.floor(Math.random()*4)];
+                confetti.style.transform = 'scale(' + (Math.random() * 0.5 + 0.5) + ')';
+                confetti.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 2500);
+            }
+        }
+
+        salaryBtn.addEventListener('click', () => {
+            const parentPanel = salaryBtn.closest('.udhar-dashboard');
+            parentPanel.classList.add('shake-element');
+            setTimeout(() => parentPanel.classList.remove('shake-element'), 400);
+
+            triggerConfetti();
+
+            const randomMsg = phrases[Math.floor(Math.random() * phrases.length)];
+            popupMessage.innerText = randomMsg;
+            funnyPopup.classList.add('show');
+
+            setTimeout(() => {
+                funnyPopup.classList.remove('show');
+            }, 3000);
         });
-      });
+
+        // Dynamic Space Parallax Mapping Engine
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.glass-panel, .royal-card');
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if(rect.top < window.innerHeight && rect.bottom > 0) {
+                    card.style.transform = `translateY(${mouseY * 8}px) rotateX(${mouseY * 6}deg) rotateY(${mouseX * 6}deg)`;
+                }
+            });
+        });
     </script>
-  </body>
+</body>
 </html>
